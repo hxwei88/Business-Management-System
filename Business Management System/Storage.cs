@@ -319,7 +319,7 @@ namespace Business_Management_System
 
         ArrayList failedUpload = new ArrayList();
 
-        private async void btn_upload_Click(object sender, EventArgs e)
+        private void btn_upload_Click(object sender, EventArgs e)
         {
             OpenFileDialog openFileDialog1 = new OpenFileDialog();
             openFileDialog1.Title = "Browse Invoices";
