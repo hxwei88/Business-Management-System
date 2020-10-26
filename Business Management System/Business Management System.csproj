@@ -297,8 +297,18 @@
     <Compile Include="Database.Designer.cs">
       <DependentUpon>Database.cs</DependentUpon>
     </Compile>
+    <Compile Include="Extensions.cs" />
+    <Compile Include="ExTreeView.cs">
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="Invoice.cs" />
     <Compile Include="Invoice_Items.cs" />
+    <Compile Include="Load.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Load.Designer.cs">
+      <DependentUpon>Load.cs</DependentUpon>
+    </Compile>
     <Compile Include="Order.cs" />
     <Compile Include="Order_Items.cs" />
     <Compile Include="Report.cs">
@@ -340,6 +350,7 @@
     <Compile Include="Sell.Designer.cs">
       <DependentUpon>Sell.cs</DependentUpon>
     </Compile>
+    <Compile Include="Vendor.cs" />
     <None Include="ClassDiagram.cd" />
     <None Include="Resources\database.png" />
     <None Include="Resources\home.png" />
@@ -357,6 +368,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Database.resx">
       <DependentUpon>Database.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Load.resx">
+      <DependentUpon>Load.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Sell.resx">
       <DependentUpon>Sell.cs</DependentUpon>

@@ -26,6 +26,13 @@ namespace Business_Management_System
             uc_storage();
         }
 
+        private void uc_sell()
+        {
+            pnl_main.Controls.Clear();
+            ctrl_sell.Dock = DockStyle.Fill;
+            pnl_main.Controls.Add(ctrl_sell);
+        }
+
         private void uc_storage()
         {
             pnl_main.Controls.Clear();
@@ -47,24 +54,11 @@ namespace Business_Management_System
             pnl_main.Controls.Add(ctrl_report);
         }
 
-        private void uc_home()
-        {
-            pnl_main.Controls.Clear();
-            ctrl_sell.Dock = DockStyle.Fill;
-            pnl_main.Controls.Add(ctrl_sell);
-        }
-
         private void uc_database()
         {
             pnl_main.Controls.Clear();
             ctrl_database.Dock = DockStyle.Fill;
             pnl_main.Controls.Add(ctrl_database);
-        }
-
-        private void saveToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            ctrl_storage.updateDb();
-            MessageBox.Show("Database Updated Successfully");
         }
 
         private void btn_login_Click(object sender, EventArgs e)

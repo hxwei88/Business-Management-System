@@ -46,7 +46,6 @@ namespace Business_Management_System
             string path = AppDomain.CurrentDomain.BaseDirectory + @"ekia.json";
             Environment.SetEnvironmentVariable("GOOGLE_APPLICATION_CREDENTIALS", path);
             db = FirestoreDb.Create("ekia-da749");
-            
         }
 
         private async void retrieveStock()
