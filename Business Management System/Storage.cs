@@ -318,7 +318,7 @@ namespace Business_Management_System
         }
 
         ArrayList failedUpload = new ArrayList();
-
+        ArrayList newInvoiceStock = new ArrayList();
         private void btn_upload_Click(object sender, EventArgs e)
         {
             OpenFileDialog openFileDialog1 = new OpenFileDialog();
@@ -337,6 +337,10 @@ namespace Business_Management_System
                 uploadInvoice(file);
             }
 
+            PriceEntryForm form = new PriceEntryForm(add_coll);
+
+            form.Show();
+
             if (failedUpload.Count > 0)
             {
                 string message = "File(s) chosen below failed to upload:\n";
@@ -349,12 +353,15 @@ namespace Business_Management_System
                 MessageBox.Show(message, "Invalid file(s) detected!");
             }
 
+            failedUpload.Clear();
+
             finishLoad();
         }
 
         private async void uploadInvoice(String file)
         {
-            Excel.Application xlApp = new Excel.Application();Excel.Workbook xlWorkBook = xlApp.Workbooks.Open(file);
+            Excel.Application xlApp = new Excel.Application();
+            Excel.Workbook xlWorkBook = xlApp.Workbooks.Open(file);
             object misValue = System.Reflection.Missing.Value;
 
             foreach (Excel.Worksheet xlWorkSheet in xlWorkBook.Worksheets)
@@ -372,7 +379,76 @@ namespace Business_Management_System
                     temp = xlWorkSheet.Range["Item_Total_Price"].Value2.ToString();
                     temp = xlWorkSheet.Range["Total_Balance"].Value2.ToString();
 
-                    updateStockDb(xlWorkSheet, await updateVendorDb(xlWorkSheet.Range["Vendor_Name"].Value2.ToString()));
+                    try
+                    {
+                        for(int count = 0; ; count++)
+                        {
+                            newInvoiceStock.Add(xlWorkSheet.Cells[xlWorkSheet.Range["Item_Desc"].Row + count, xlWorkSheet.Range["Item_Desc"].Column].Value2.ToString());
+                        }
+                    }
+                    catch
+                    {
+                        CollectionReference coll = db.Collection("stock");
+
+                        string vendor_id = await updateVendorDb(xlWorkSheet.Range["Vendor_Name"].Value2.ToString());
+
+                        for (int i = 0; i < newInvoiceStock.Count; i++)
+                        {
+                            //query need to repeat to verify existence of item
+                            Query query = coll
+                                .WhereEqualTo("item_id", newInvoiceStock[i].ToString())
+                                .WhereEqualTo("vendor_id", vendor_id);
+
+                            QuerySnapshot snap = await query.GetSnapshotAsync();
+
+                            if (snap.Documents.Count <= 0)
+                            {
+                                //add new item
+                                Stock stock = new Stock();
+
+                                //need auto generate
+                                stock.item_id = "temporary";
+                                stock.item_name = xlWorkSheet.Cells[xlWorkSheet.Range["Item_Desc"].Row + i, xlWorkSheet.Range["Item_Desc"].Column].Value2.ToString();
+                                stock.vendor_id = vendor_id;
+                                stock.wholesale_price = xlWorkSheet.Cells[xlWorkSheet.Range["Item_Price"].Row + i, xlWorkSheet.Range["Item_Desc"].Column].Value2.ToString();
+                                stock.quantity = xlWorkSheet.Cells[xlWorkSheet.Range["Item_Quantity"].Row + i, xlWorkSheet.Range["Item_Desc"].Column].Value2.ToString();
+
+                                add_coll.Add(stock);
+                                MessageBox.Show(add_coll[i].item_id);
+                            }
+                            else
+                            {
+                                //edit existing item
+                                string id = snap.Documents[0].Id;
+
+                                Stock stock = snap.Documents[0].ConvertTo<Stock>();
+
+                                DocumentReference docref = coll.Document(id);
+
+                                Dictionary<string, object> data = new Dictionary<string, object>()
+                                {
+                                    {"quantity", stock.quantity + Convert.ToInt32(xlWorkSheet.Cells[xlWorkSheet.Range["Item_Quantity"].Row + i, xlWorkSheet.Range["Item_Desc"].Column].Value2) }
+                                };
+
+                                await docref.SetAsync(data);
+                            }
+                        }
+
+                        /*foreach (Stock stock in add_coll)
+                        {
+                            Dictionary<string, object> data2 = new Dictionary<string, object>()
+                            {
+                                {"item_name", stock.item_name},
+                                {"vendor_id", vendor_id},
+                                //{"unit_price", stock.unit_price},
+                                {"quantity", stock.quantity},
+                                {"wholesale_price", stock.wholesale_price},
+                                {"item_id", stock.item_id}
+                            };
+
+                            await coll.AddAsync(data2);
+                        }*/
+                    }
                 }
                 catch
                 {
@@ -380,14 +456,15 @@ namespace Business_Management_System
                 }
                 finally
                 {
-                    xlWorkBook.Close(false, misValue, misValue);
-                    xlApp.Quit();
-
-                    releaseObject(xlWorkSheet);
-                    releaseObject(xlWorkBook);
-                    releaseObject(xlApp);
+                    
                 }
             }
+
+            xlWorkBook.Close(false, misValue, misValue);
+            xlApp.Quit();
+
+            releaseObject(xlWorkBook);
+            releaseObject(xlApp);
         }
 
         private async Task<string> updateVendorDb(string vendorName)
@@ -402,12 +479,14 @@ namespace Business_Management_System
             {
                 Dictionary<string, object> data = new Dictionary<string, object>()
                 {
+                    //need to generate auto id
                     {"vendor_id", "temporary"},
                     {"vendor_name", vendorName}
                 };
 
                 await coll.AddAsync(data);
 
+                //need to generate auto id
                 return "temporary";
             }
 
@@ -418,14 +497,6 @@ namespace Business_Management_System
 
         private async void updateStockDb(Excel.Worksheet xlWorkSheet, string id)
         {
-            CollectionReference coll = db.Collection("stock");
-
-            Query query = coll
-                .WhereEqualTo("item_num", xlWorkSheet.Range["Item_Number"].Value2.ToString())
-                .WhereEqualTo("vendor_id", id);
-
-            QuerySnapshot snap = await query.GetSnapshotAsync();
-
             
         }
 

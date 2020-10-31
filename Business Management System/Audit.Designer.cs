@@ -141,7 +141,7 @@
             this.btn_prevMonth.Name = "btn_prevMonth";
             this.btn_prevMonth.Size = new System.Drawing.Size(220, 112);
             this.btn_prevMonth.TabIndex = 2;
-            this.btn_prevMonth.Text = "Monthly Audit";
+            this.btn_prevMonth.Text = "MONTHLY AUDIT";
             this.btn_prevMonth.UseVisualStyleBackColor = false;
             this.btn_prevMonth.Click += new System.EventHandler(this.btn_prevMonth_Click);
             // 
@@ -155,7 +155,7 @@
             this.btn_choosenMonth.Name = "btn_choosenMonth";
             this.btn_choosenMonth.Size = new System.Drawing.Size(220, 112);
             this.btn_choosenMonth.TabIndex = 3;
-            this.btn_choosenMonth.Text = "Custom Audit";
+            this.btn_choosenMonth.Text = "CUSTOM AUDIT";
             this.btn_choosenMonth.UseVisualStyleBackColor = false;
             this.btn_choosenMonth.Click += new System.EventHandler(this.btn_choosenMonth_Click);
             // 
