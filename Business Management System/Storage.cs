@@ -43,6 +43,13 @@ namespace Business_Management_System
             retrieveDb("stock");
         }
 
+        private void refreshDGV()
+        {
+            dataGridView1.Rows.Clear();
+            coll_id.Clear();
+            retrieveDb("stock");
+        }
+
         private void insertDb()
         {
             CollectionReference coll = db.Collection("stock");
@@ -337,10 +344,6 @@ namespace Business_Management_System
                 uploadInvoice(file);
             }
 
-            PriceEntryForm form = new PriceEntryForm(add_coll);
-
-            form.Show();
-
             if (failedUpload.Count > 0)
             {
                 string message = "File(s) chosen below failed to upload:\n";
@@ -410,11 +413,10 @@ namespace Business_Management_System
                                 stock.item_id = "temporary";
                                 stock.item_name = xlWorkSheet.Cells[xlWorkSheet.Range["Item_Desc"].Row + i, xlWorkSheet.Range["Item_Desc"].Column].Value2.ToString();
                                 stock.vendor_id = vendor_id;
-                                stock.wholesale_price = xlWorkSheet.Cells[xlWorkSheet.Range["Item_Price"].Row + i, xlWorkSheet.Range["Item_Desc"].Column].Value2.ToString();
-                                stock.quantity = xlWorkSheet.Cells[xlWorkSheet.Range["Item_Quantity"].Row + i, xlWorkSheet.Range["Item_Desc"].Column].Value2.ToString();
+                                stock.wholesale_price = Double.Parse(xlWorkSheet.Cells[xlWorkSheet.Range["Item_Price"].Row + i, xlWorkSheet.Range["Item_Price"].Column].Value2.ToString());
+                                stock.quantity = Int32.Parse(xlWorkSheet.Cells[xlWorkSheet.Range["Item_Quantity"].Row + i, xlWorkSheet.Range["Item_Quantity"].Column].Value2.ToString());
 
                                 add_coll.Add(stock);
-                                MessageBox.Show(add_coll[i].item_id);
                             }
                             else
                             {
@@ -433,30 +435,11 @@ namespace Business_Management_System
                                 await docref.SetAsync(data);
                             }
                         }
-
-                        /*foreach (Stock stock in add_coll)
-                        {
-                            Dictionary<string, object> data2 = new Dictionary<string, object>()
-                            {
-                                {"item_name", stock.item_name},
-                                {"vendor_id", vendor_id},
-                                //{"unit_price", stock.unit_price},
-                                {"quantity", stock.quantity},
-                                {"wholesale_price", stock.wholesale_price},
-                                {"item_id", stock.item_id}
-                            };
-
-                            await coll.AddAsync(data2);
-                        }*/
                     }
                 }
                 catch
                 {
                     failedUpload.Add(Path.GetFileName(file));
-                }
-                finally
-                {
-                    
                 }
             }
 
@@ -465,6 +448,36 @@ namespace Business_Management_System
 
             releaseObject(xlWorkBook);
             releaseObject(xlApp);
+
+            PriceEntryForm form = new PriceEntryForm(add_coll);
+
+            form.Show();
+
+            form.FormClosed += new FormClosedEventHandler(Form_Closed);
+        }
+
+        async void Form_Closed(object sender, FormClosedEventArgs e)
+        {
+            CollectionReference coll = db.Collection("stock");
+
+            foreach (Stock stock in add_coll)
+            {
+                Dictionary<string, object> data2 = new Dictionary<string, object>()
+                {
+                    {"item_name", stock.item_name},
+                    {"vendor_id", stock.vendor_id},
+                    {"unit_price", stock.unit_price},
+                    {"quantity", stock.quantity},
+                    {"wholesale_price", stock.wholesale_price},
+                    {"item_id", stock.item_id}
+                };
+
+                await coll.AddAsync(data2);
+            }
+
+            add_coll.Clear();
+
+            refreshDGV();
         }
 
         private async Task<string> updateVendorDb(string vendorName)

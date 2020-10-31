@@ -32,7 +32,7 @@ namespace Business_Management_System
 
         private void btn_cfm_Click(object sender, EventArgs e)
         {
-            foreach(DataGridViewRow row in dataGridView1.Rows)
+            foreach (DataGridViewRow row in dataGridView1.Rows)
             {
                 if(row.Cells["item_price"].Value.ToString() == "")
                 {
@@ -45,6 +45,8 @@ namespace Business_Management_System
             {
                  editStock[i].unit_price = Double.Parse(dataGridView1.Rows[i].Cells["item_price"].Value.ToString()); 
             }
+
+            this.Close();
         }
     }
 }
