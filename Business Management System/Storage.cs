@@ -77,8 +77,39 @@ namespace Business_Management_System
             {
                 DocumentReference docref = db.Collection("stock").Document(id);
 
-                for(int i = 0; i < coll_id.Count; i++)
+                for (int i = 0; i < dataGridView1.Rows.Count; i++)
                 {
+                    string temp = Convert.ToString(dataGridView1.Rows[i].Cells[dataGridView1.Columns["id"].Index].Value);
+
+                    if (temp != "")
+                    {
+                        if(temp == id)
+                        {
+                            Dictionary<string, object> data = new Dictionary<string, object>()
+                            {
+                                {"item_name", dataGridView1.Rows[i].Cells[dataGridView1.Columns["item_name"].Index].Value.ToString()},
+                                {"vendor_id", dataGridView1.Rows[i].Cells[dataGridView1.Columns["vendor_id"].Index].Value.ToString()},
+                                {"unit_price", Convert.ToDouble(dataGridView1.Rows[i].Cells[dataGridView1.Columns["unit_price"].Index].Value.ToString())},
+                                {"quantity", Int32.Parse(dataGridView1.Rows[i].Cells[dataGridView1.Columns["quantity"].Index].Value.ToString())},
+                                {"wholesale_price", Convert.ToDouble(dataGridView1.Rows[i].Cells[dataGridView1.Columns["wholesale_price"].Index].Value.ToString())},
+                                {"item_id", dataGridView1.Rows[i].Cells[dataGridView1.Columns["item_id"].Index].Value.ToString()}
+                            };
+
+                            DocumentSnapshot snap = await docref.GetSnapshotAsync();
+
+                            if (snap.Exists)
+                            {
+                                await docref.SetAsync(data);
+                            }
+
+                            break;
+                        }
+                    }
+                }
+
+                /*for(int i = 0; i < coll_id.Count; i++)
+                {
+                    //fetch row based on id in dgv
                     if(id == coll_id[i].ToString())
                     {
                         Dictionary<string, object> data = new Dictionary<string, object>()
@@ -100,7 +131,7 @@ namespace Business_Management_System
 
                         break;
                     }
-                }
+                }*/
             }
 
             edit_coll_id.Clear();
@@ -148,14 +179,16 @@ namespace Business_Management_System
                 {
                     dataGridView1.Rows.Add();
 
-                    colorizeRow(stock.quantity, coll_id.Count - 1);
+                    dataGridView1.Rows[dataGridView1.RowCount - 2].Cells[dataGridView1.Columns["id"].Index].Value = docsnap.Id;
 
-                    dataGridView1.Rows[coll_id.Count - 1].Cells[dataGridView1.Columns["item_name"].Index].Value = stock.item_name;
-                    dataGridView1.Rows[coll_id.Count - 1].Cells[dataGridView1.Columns["item_id"].Index].Value = stock.item_id;
-                    dataGridView1.Rows[coll_id.Count - 1].Cells[dataGridView1.Columns["vendor_id"].Index].Value = stock.vendor_id;
-                    dataGridView1.Rows[coll_id.Count - 1].Cells[dataGridView1.Columns["quantity"].Index].Value = stock.quantity;
-                    dataGridView1.Rows[coll_id.Count - 1].Cells[dataGridView1.Columns["wholesale_price"].Index].Value = stock.wholesale_price;
-                    dataGridView1.Rows[coll_id.Count - 1].Cells[dataGridView1.Columns["unit_price"].Index].Value = stock.unit_price;
+                    colorizeRow(stock.quantity, dataGridView1.RowCount - 2);
+
+                    dataGridView1.Rows[dataGridView1.RowCount - 2].Cells[dataGridView1.Columns["item_name"].Index].Value = stock.item_name;
+                    dataGridView1.Rows[dataGridView1.RowCount - 2].Cells[dataGridView1.Columns["item_id"].Index].Value = stock.item_id;
+                    dataGridView1.Rows[dataGridView1.RowCount - 2].Cells[dataGridView1.Columns["vendor_id"].Index].Value = stock.vendor_id;
+                    dataGridView1.Rows[dataGridView1.RowCount - 2].Cells[dataGridView1.Columns["quantity"].Index].Value = stock.quantity;
+                    dataGridView1.Rows[dataGridView1.RowCount - 2].Cells[dataGridView1.Columns["wholesale_price"].Index].Value = stock.wholesale_price;
+                    dataGridView1.Rows[dataGridView1.RowCount - 2].Cells[dataGridView1.Columns["unit_price"].Index].Value = stock.unit_price;
                     //dataGridView1.Rows[dataGridView1.RowCount - 1].ReadOnly = true;
                 }
             }
@@ -192,13 +225,16 @@ namespace Business_Management_System
             {
                 foreach (DataGridViewRow row in dataGridView1.SelectedRows)
                 {
-                    if (row.Index < coll_id.Count)
+                    string temp = Convert.ToString(dataGridView1.Rows[row.Index].Cells[dataGridView1.Columns["id"].Index].Value);
+
+                    //need redo (if no doc id means new row)
+                    if (temp != "")
                     {
                         string id = coll_id[row.Index].ToString();
 
                         coll_id.Remove(row.Index);
 
-                        del_coll_id.Add(id);
+                        del_coll_id.Add(temp);
                     }
                     else
                     {
@@ -251,10 +287,13 @@ namespace Business_Management_System
             {
                 if (cell_temp != dataGridView1[e.ColumnIndex, e.RowIndex].Value.ToString())
                 {
-                    if (e.RowIndex < coll_id.Count)
+                    string temp = Convert.ToString(dataGridView1.Rows[e.RowIndex].Cells[dataGridView1.Columns["id"].Index].Value);
+
+                    //need redo (if no doc id means new row)
+                    if (temp != "")
                     {
                         //edit
-                        edit_coll_id.Add(coll_id[e.RowIndex]);
+                        edit_coll_id.Add(temp);
                     }
                     else
                     {
@@ -506,11 +545,6 @@ namespace Business_Management_System
             Vendor vendor = snap.Documents[0].ConvertTo<Vendor>();
 
             return vendor.vendor_id;
-        }
-
-        private async void updateStockDb(Excel.Worksheet xlWorkSheet, string id)
-        {
-            
         }
 
         private void releaseObject(object obj)

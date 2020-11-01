@@ -12,12 +12,6 @@ namespace Business_Management_System
 {
     public partial class Main : Form
     {
-        private Storage ctrl_storage = new Storage();
-        private Audit ctrl_audit = new Audit();
-        private Report ctrl_report = new Report();
-        private Sell ctrl_sell = new Sell();
-        private Database ctrl_database = new Database();
-
         public Main()
         {
             InitializeComponent();
@@ -28,6 +22,8 @@ namespace Business_Management_System
 
         private void uc_sell()
         {
+            Sell ctrl_sell = new Sell();
+
             pnl_main.Controls.Clear();
             ctrl_sell.Dock = DockStyle.Fill;
             pnl_main.Controls.Add(ctrl_sell);
@@ -35,6 +31,8 @@ namespace Business_Management_System
 
         private void uc_storage()
         {
+            Storage ctrl_storage = new Storage();
+
             pnl_main.Controls.Clear();
             ctrl_storage.Dock = DockStyle.Fill;
             pnl_main.Controls.Add(ctrl_storage);
@@ -42,6 +40,8 @@ namespace Business_Management_System
 
         private void uc_audit()
         {
+            Audit ctrl_audit = new Audit();
+
             pnl_main.Controls.Clear();
             ctrl_audit.Dock = DockStyle.Fill;
             pnl_main.Controls.Add(ctrl_audit);
@@ -49,6 +49,8 @@ namespace Business_Management_System
 
         private void uc_report()
         {
+            Report ctrl_report = new Report();
+
             pnl_main.Controls.Clear();
             ctrl_report.Dock = DockStyle.Fill;
             pnl_main.Controls.Add(ctrl_report);
@@ -56,6 +58,8 @@ namespace Business_Management_System
 
         private void uc_database()
         {
+            Database ctrl_database = new Database();
+
             pnl_main.Controls.Clear();
             ctrl_database.Dock = DockStyle.Fill;
             pnl_main.Controls.Add(ctrl_database);
