@@ -34,11 +34,13 @@ namespace Business_Management_System
 
         private void Report_Load(object sender, EventArgs e)
         {
+            loading();
             order_all = new List<Order>();
             stock_all = new List<Stock>();
             connectDb();
             getDate();
             retrieveStock();
+            finishLoad();
         }
 
         private void connectDb()
@@ -121,13 +123,13 @@ namespace Business_Management_System
                         {
                             total_earning += search.unit_price * item.quantity;
                             total_wholesale += search.wholesale_price * item.quantity;
-                            profit += (search.unit_price - search.wholesale_price) * item.quantity;
+                            //profit += (search.unit_price - search.wholesale_price) * item.quantity;
                             break;
                         }
                     }
                 }
 
-                return profit;
+                return total_earning;
             }
 
             return 0;
@@ -155,17 +157,49 @@ namespace Business_Management_System
 
             for (int year = oldestDate.Year; year <= newestDate.Year; year++)
             {
-                cb_month_yr.Items.Add(year);
-            }
+                System.DateTime from = new System.DateTime(year, 1, 1, 0, 0, 0, DateTimeKind.Utc);
+                System.DateTime to = new System.DateTime(year, 12, 31, 0, 0, 0, DateTimeKind.Utc);
 
-            for (int month = 1; month <= 12; month++)
-            {
-                cb_month_mth.Items.Add(month);
+                QuerySnapshot docsnap = await coll.WhereGreaterThanOrEqualTo("order_date", from).WhereLessThanOrEqualTo("order_date", to).GetSnapshotAsync();
+
+                if (docsnap.Documents.Count > 0)
+                {
+                    cb_month_yr.Items.Add(year);
+                }
             }
         }
 
-        private void populateChartMonth(int year, int month)
+        private async Task<double> calculateDailyCost(int year, int month)
         {
+            double totalWholesale = 0;
+
+            CollectionReference coll = db.Collection("invoice");
+
+            Query query = coll.WhereGreaterThanOrEqualTo("invoice_date", new System.DateTime(year, month, 1, 0, 0, 0, DateTimeKind.Utc)).WhereLessThanOrEqualTo("invoice_date", new System.DateTime(year, month, System.DateTime.DaysInMonth(year, month), 0, 0, 0, DateTimeKind.Utc));
+
+            QuerySnapshot snap = await query.GetSnapshotAsync();
+
+            foreach(DocumentSnapshot docsnap in snap.Documents)
+            {
+                Invoice order = docsnap.ConvertTo<Invoice>();
+
+                QuerySnapshot item_snap = await coll.Document(docsnap.Id).Collection("invoice_items").GetSnapshotAsync();
+
+                foreach(DocumentSnapshot item_docsnap in item_snap.Documents)
+                {
+                    Invoice_Items invoice_item = item_docsnap.ConvertTo<Invoice_Items>();
+
+                    totalWholesale += invoice_item.quantity * invoice_item.wholesale_price;
+                }
+            }
+
+            return Math.Round(totalWholesale/System.DateTime.DaysInMonth(year, month), 2);
+        }
+
+        private async void populateChartMonth(int year, int month)
+        {
+            double dailycost = await calculateDailyCost(year, month);
+
             //monthly sales report
             foreach (System.DateTime date in AllDatesInMonth(year, month))
             {
@@ -173,32 +207,38 @@ namespace Business_Management_System
 
                 if (search.Count > 0)
                 {
-                    cht_statistics.Series["Profit"].Points.AddXY(date.Day, calculateProfit(exe, search));
+                    cht_statistics.Series["Profit (Daily)"].Points.AddXY(date.Day, calculateProfit(exe, search) - dailycost);
+                    //cht_statistics.Series["Profit (Lifetime)"].Points.AddXY();
                 }
                 else
                 {
-                    cht_statistics.Series["Profit"].Points.AddXY(date.Day, 0);
+                    cht_statistics.Series["Profit (Daily)"].Points.AddXY(date.Day, -dailycost);
+                    //cht_statistics.Series["Profit (Lifetime)"].Points.AddXY();
                 }
             }
         }
 
-        private void populateChartYear(int year)
+        private async void populateChartYear(int year)
         {
             int count = 1;
 
             for (int month = 1; month <= 12; month++)
             {
+                double dailycost = await calculateDailyCost(year, month);
+
                 foreach (System.DateTime date in AllDatesInMonth(year, month))
                 {
                     var search = order_all.FindAll(x => x.order_date.Day == date.Day && x.order_date.Month == date.Month);
 
                     if (search.Count > 0)
                     {
-                        cht_statistics.Series["Profit"].Points.AddXY(count++, calculateProfit(exe, search));
+                        cht_statistics.Series["Profit (Daily)"].Points.AddXY(count++, calculateProfit(exe, search) - dailycost);
+                        //cht_statistics.Series["Profit (Lifetime)"].Points.AddXY();
                     }
                     else
                     {
-                        cht_statistics.Series["Profit"].Points.AddXY(count++, 0);
+                        cht_statistics.Series["Profit (Daily)"].Points.AddXY(count++, -dailycost);
+                        //cht_statistics.Series["Profit (Lifetime)"].Points.AddXY();
                     }
                 }
             }
@@ -213,43 +253,117 @@ namespace Business_Management_System
             }
         }
 
-        private async void btn_month_Click(object sender, EventArgs e)
+        string selectedyear;
+
+        private async void cb_month_yr_SelectedIndexChanged(object sender, EventArgs e)
         {
-            int year = Int32.Parse(cb_month_yr.Text);
-            int month = Int32.Parse(cb_month_mth.Text);
-
-            foreach (var series in cht_statistics.Series)
-            {
-                series.Points.Clear();
-            }
-
-            exe = await retrieveOrder(new System.DateTime(year, month, 1, 0, 0, 0, DateTimeKind.Utc), new System.DateTime(year, month, System.DateTime.DaysInMonth(year, month), 0, 0, 0, DateTimeKind.Utc));
-            populateChartMonth(year, month);
-        }
-
-        private async void btn_year_Click(object sender, EventArgs e)
-        {
-            int year = Int32.Parse(cb_month_yr.Text);
-
-            foreach (var series in cht_statistics.Series)
-            {
-                series.Points.Clear();
-            }
-
-            exe = await retrieveOrder(new System.DateTime(year, 1, 1, 0, 0, 0, DateTimeKind.Utc), new System.DateTime(year, 12, 31, 0, 0, 0, DateTimeKind.Utc));
-            populateChartYear(year);
-        }
-
-        private void cb_month_yr_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            if(cb_month_yr.SelectedItem.ToString() != "")
-            {
-                cb_month_mth.Enabled = true;
-            }
-            else
+            if (cb_month_yr.SelectedItem.ToString() != selectedyear)
             {
                 cb_month_mth.Enabled = false;
             }
+
+            if (cb_month_yr.SelectedItem.ToString() != "" && cb_month_yr.SelectedItem.ToString() != selectedyear)
+            {
+                cb_month_mth.Items.Clear();
+
+                for (int month = 1; month <= 12; month++)
+                {
+                    System.DateTime from = new System.DateTime(Int32.Parse(cb_month_yr.SelectedItem.ToString()), month, 1, 0, 0, 0, DateTimeKind.Utc);
+                    System.DateTime to = from.AddMonths(1).AddDays(-1);
+
+                    QuerySnapshot snap = await db.Collection("order").WhereGreaterThanOrEqualTo("order_date", from).WhereLessThanOrEqualTo("order_date", to).GetSnapshotAsync();
+
+                    if (snap.Documents.Count > 0)
+                    {
+                        cb_month_mth.Items.Add(month);
+                    }
+                }
+
+                selectedyear = cb_month_yr.SelectedItem.ToString();
+
+                cb_month_mth.Enabled = true;
+            }
+        }
+
+        private void cb_range_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            switch (cb_range.SelectedIndex)
+            {
+                case 0:
+                    if (Convert.ToString(cb_month_yr.SelectedItem) != "" && Convert.ToString(cb_month_mth.SelectedItem) != "")
+                    {
+                        btn_run.Enabled = true;
+                    }
+                    break;
+                case 1:
+                    cb_month_mth.Enabled = false;
+                    break;
+            }
+        }
+
+        private async void btn_run_Click(object sender, EventArgs e)
+        {
+            int year;
+            int month;
+
+            loading();
+
+            switch (cb_range.SelectedIndex)
+            {
+                case 0:
+                    year = Int32.Parse(cb_month_yr.Text);
+                    month = Int32.Parse(cb_month_mth.Text);
+
+                    cht_statistics.Series["Profit (Daily)"].IsValueShownAsLabel = true;
+
+                    foreach (var series in cht_statistics.Series)
+                    {
+                        series.Points.Clear();
+                    }
+
+                    exe = await retrieveOrder(new System.DateTime(year, month, 1, 0, 0, 0, DateTimeKind.Utc), new System.DateTime(year, month, System.DateTime.DaysInMonth(year, month), 0, 0, 0, DateTimeKind.Utc));
+                    populateChartMonth(year, month);
+                    break;
+                case 1:
+                    year = Int32.Parse(cb_month_yr.Text);
+
+                    cht_statistics.Series["Profit (Daily)"].IsValueShownAsLabel = false;
+
+                    foreach (var series in cht_statistics.Series)
+                    {
+                        series.Points.Clear();
+                    }
+
+                    exe = await retrieveOrder(new System.DateTime(year, 1, 1, 0, 0, 0, DateTimeKind.Utc), new System.DateTime(year, 12, 31, 0, 0, 0, DateTimeKind.Utc));
+                    populateChartYear(year);
+                    break;
+            }
+
+            finishLoad();
+        }
+
+        private void cb_month_mth_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (Convert.ToString(cb_range.SelectedItem) != "")
+            {
+                btn_run.Enabled = true;
+            }
+        }
+
+        private void loading()
+        {
+            pnl_header.Enabled = false;
+            pnl_header.Cursor = Cursors.WaitCursor;
+            pnl_content.Enabled = false;
+            pnl_content.Cursor = Cursors.WaitCursor;
+        }
+
+        private void finishLoad()
+        {
+            pnl_header.Enabled = true;
+            pnl_header.Cursor = Cursors.Default;
+            pnl_content.Enabled = true;
+            pnl_content.Cursor = Cursors.Default;
         }
     }
 }
