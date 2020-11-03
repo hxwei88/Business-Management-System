@@ -34,14 +34,14 @@
             System.Windows.Forms.DataVisualization.Charting.Series series2 = new System.Windows.Forms.DataVisualization.Charting.Series();
             System.Windows.Forms.DataVisualization.Charting.Title title1 = new System.Windows.Forms.DataVisualization.Charting.Title();
             this.pnl_header = new System.Windows.Forms.Panel();
+            this.btn_run = new System.Windows.Forms.Button();
+            this.cb_range = new System.Windows.Forms.ComboBox();
             this.label2 = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
             this.cb_month_mth = new System.Windows.Forms.ComboBox();
             this.cb_month_yr = new System.Windows.Forms.ComboBox();
             this.pnl_content = new System.Windows.Forms.Panel();
             this.cht_statistics = new System.Windows.Forms.DataVisualization.Charting.Chart();
-            this.cb_range = new System.Windows.Forms.ComboBox();
-            this.btn_run = new System.Windows.Forms.Button();
             this.pnl_header.SuspendLayout();
             this.pnl_content.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.cht_statistics)).BeginInit();
@@ -58,17 +58,47 @@
             this.pnl_header.Controls.Add(this.cb_month_yr);
             this.pnl_header.Dock = System.Windows.Forms.DockStyle.Top;
             this.pnl_header.Location = new System.Drawing.Point(0, 0);
+            this.pnl_header.Margin = new System.Windows.Forms.Padding(4);
             this.pnl_header.Name = "pnl_header";
-            this.pnl_header.Size = new System.Drawing.Size(921, 41);
+            this.pnl_header.Size = new System.Drawing.Size(1228, 50);
             this.pnl_header.TabIndex = 0;
+            // 
+            // btn_run
+            // 
+            this.btn_run.Enabled = false;
+            this.btn_run.Location = new System.Drawing.Point(1128, 0);
+            this.btn_run.Margin = new System.Windows.Forms.Padding(4);
+            this.btn_run.Name = "btn_run";
+            this.btn_run.Size = new System.Drawing.Size(100, 46);
+            this.btn_run.TabIndex = 11;
+            this.btn_run.Text = "RUN";
+            this.btn_run.UseVisualStyleBackColor = true;
+            this.btn_run.Click += new System.EventHandler(this.btn_run_Click);
+            // 
+            // cb_range
+            // 
+            this.cb_range.Dock = System.Windows.Forms.DockStyle.Left;
+            this.cb_range.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cb_range.Font = new System.Drawing.Font("Microsoft Sans Serif", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.cb_range.FormattingEnabled = true;
+            this.cb_range.Items.AddRange(new object[] {
+            "Monthly Report",
+            "Yearly Report"});
+            this.cb_range.Location = new System.Drawing.Point(0, 0);
+            this.cb_range.Margin = new System.Windows.Forms.Padding(4);
+            this.cb_range.Name = "cb_range";
+            this.cb_range.Size = new System.Drawing.Size(347, 44);
+            this.cb_range.TabIndex = 10;
+            this.cb_range.SelectedIndexChanged += new System.EventHandler(this.cb_range_SelectedIndexChanged);
             // 
             // label2
             // 
             this.label2.AutoSize = true;
             this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label2.Location = new System.Drawing.Point(470, 4);
+            this.label2.Location = new System.Drawing.Point(627, 5);
+            this.label2.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(85, 29);
+            this.label2.Size = new System.Drawing.Size(107, 36);
             this.label2.TabIndex = 5;
             this.label2.Text = "Month:";
             // 
@@ -76,9 +106,10 @@
             // 
             this.label1.AutoSize = true;
             this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label1.Location = new System.Drawing.Point(267, 3);
+            this.label1.Location = new System.Drawing.Point(356, 4);
+            this.label1.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(70, 29);
+            this.label1.Size = new System.Drawing.Size(85, 36);
             this.label1.TabIndex = 4;
             this.label1.Text = "Year:";
             // 
@@ -88,20 +119,23 @@
             this.cb_month_mth.Enabled = false;
             this.cb_month_mth.Font = new System.Drawing.Font("Microsoft Sans Serif", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.cb_month_mth.FormattingEnabled = true;
-            this.cb_month_mth.Location = new System.Drawing.Point(561, 1);
+            this.cb_month_mth.Location = new System.Drawing.Point(748, 1);
+            this.cb_month_mth.Margin = new System.Windows.Forms.Padding(4);
             this.cb_month_mth.Name = "cb_month_mth";
-            this.cb_month_mth.Size = new System.Drawing.Size(121, 37);
+            this.cb_month_mth.Size = new System.Drawing.Size(160, 44);
             this.cb_month_mth.TabIndex = 1;
             this.cb_month_mth.SelectedIndexChanged += new System.EventHandler(this.cb_month_mth_SelectedIndexChanged);
             // 
             // cb_month_yr
             // 
             this.cb_month_yr.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cb_month_yr.Enabled = false;
             this.cb_month_yr.Font = new System.Drawing.Font("Microsoft Sans Serif", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.cb_month_yr.FormattingEnabled = true;
-            this.cb_month_yr.Location = new System.Drawing.Point(343, 1);
+            this.cb_month_yr.Location = new System.Drawing.Point(457, 1);
+            this.cb_month_yr.Margin = new System.Windows.Forms.Padding(4);
             this.cb_month_yr.Name = "cb_month_yr";
-            this.cb_month_yr.Size = new System.Drawing.Size(121, 37);
+            this.cb_month_yr.Size = new System.Drawing.Size(160, 44);
             this.cb_month_yr.TabIndex = 0;
             this.cb_month_yr.SelectedIndexChanged += new System.EventHandler(this.cb_month_yr_SelectedIndexChanged);
             // 
@@ -109,9 +143,10 @@
             // 
             this.pnl_content.Controls.Add(this.cht_statistics);
             this.pnl_content.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.pnl_content.Location = new System.Drawing.Point(0, 41);
+            this.pnl_content.Location = new System.Drawing.Point(0, 50);
+            this.pnl_content.Margin = new System.Windows.Forms.Padding(4);
             this.pnl_content.Name = "pnl_content";
-            this.pnl_content.Size = new System.Drawing.Size(921, 545);
+            this.pnl_content.Size = new System.Drawing.Size(1228, 671);
             this.pnl_content.TabIndex = 1;
             // 
             // cht_statistics
@@ -124,6 +159,7 @@
             legend1.Name = "Legend1";
             this.cht_statistics.Legends.Add(legend1);
             this.cht_statistics.Location = new System.Drawing.Point(0, 0);
+            this.cht_statistics.Margin = new System.Windows.Forms.Padding(4);
             this.cht_statistics.Name = "cht_statistics";
             series1.ChartArea = "ChartArea1";
             series1.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Line;
@@ -137,7 +173,7 @@
             series2.Name = "Profit (Lifetime)";
             this.cht_statistics.Series.Add(series1);
             this.cht_statistics.Series.Add(series2);
-            this.cht_statistics.Size = new System.Drawing.Size(921, 545);
+            this.cht_statistics.Size = new System.Drawing.Size(1228, 671);
             this.cht_statistics.TabIndex = 0;
             this.cht_statistics.Text = "chart1";
             title1.Font = new System.Drawing.Font("Impact", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
@@ -145,41 +181,16 @@
             title1.Text = "Monthly Sales";
             this.cht_statistics.Titles.Add(title1);
             // 
-            // cb_range
-            // 
-            this.cb_range.Dock = System.Windows.Forms.DockStyle.Left;
-            this.cb_range.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.cb_range.Font = new System.Drawing.Font("Microsoft Sans Serif", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.cb_range.FormattingEnabled = true;
-            this.cb_range.Items.AddRange(new object[] {
-            "Monthly Report",
-            "Yearly Report"});
-            this.cb_range.Location = new System.Drawing.Point(0, 0);
-            this.cb_range.Name = "cb_range";
-            this.cb_range.Size = new System.Drawing.Size(261, 37);
-            this.cb_range.TabIndex = 10;
-            this.cb_range.SelectedIndexChanged += new System.EventHandler(this.cb_range_SelectedIndexChanged);
-            // 
-            // btn_run
-            // 
-            this.btn_run.Enabled = false;
-            this.btn_run.Location = new System.Drawing.Point(846, 0);
-            this.btn_run.Name = "btn_run";
-            this.btn_run.Size = new System.Drawing.Size(75, 37);
-            this.btn_run.TabIndex = 11;
-            this.btn_run.Text = "RUN";
-            this.btn_run.UseVisualStyleBackColor = true;
-            this.btn_run.Click += new System.EventHandler(this.btn_run_Click);
-            // 
             // Report
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.White;
             this.Controls.Add(this.pnl_content);
             this.Controls.Add(this.pnl_header);
+            this.Margin = new System.Windows.Forms.Padding(4);
             this.Name = "Report";
-            this.Size = new System.Drawing.Size(921, 586);
+            this.Size = new System.Drawing.Size(1228, 721);
             this.Load += new System.EventHandler(this.Report_Load);
             this.pnl_header.ResumeLayout(false);
             this.pnl_header.PerformLayout();

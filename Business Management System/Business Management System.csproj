@@ -323,6 +323,7 @@
     <Compile Include="Report.Designer.cs">
       <DependentUpon>Report.cs</DependentUpon>
     </Compile>
+    <Compile Include="Sales.cs" />
     <Compile Include="Stock.cs" />
     <Compile Include="Main.cs">
       <SubType>Form</SubType>

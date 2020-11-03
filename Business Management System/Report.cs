@@ -30,17 +30,15 @@ namespace Business_Management_System
         public Report()
         {
             InitializeComponent();
-        }
-
-        private void Report_Load(object sender, EventArgs e)
-        {
-            loading();
             order_all = new List<Order>();
             stock_all = new List<Stock>();
             connectDb();
             getDate();
-            retrieveStock();
-            finishLoad();
+        }
+
+        private void Report_Load(object sender, EventArgs e)
+        {
+            
         }
 
         private void connectDb()
@@ -64,6 +62,8 @@ namespace Business_Management_System
                     stock_all.Add(stock);
                 }
             }
+
+            await updateSales(newestDate.Year, newestDate.Month);
         }
 
         private async Task<bool> retrieveOrder(System.DateTime from, System.DateTime to)
@@ -123,13 +123,13 @@ namespace Business_Management_System
                         {
                             total_earning += search.unit_price * item.quantity;
                             total_wholesale += search.wholesale_price * item.quantity;
-                            //profit += (search.unit_price - search.wholesale_price) * item.quantity;
+                            profit += search.unit_price * item.quantity;
                             break;
                         }
                     }
                 }
 
-                return total_earning;
+                return profit;
             }
 
             return 0;
@@ -137,9 +137,10 @@ namespace Business_Management_System
 
         private async void getDate()
         {
+            loading();
             Query coll = db.Collection("order").OrderByDescending("order_date");
 
-            Query oldestQue = coll.Limit(1);
+            Query oldestQue = coll.LimitToLast(1);
             QuerySnapshot oldestSnap = await oldestQue.GetSnapshotAsync();
 
             DocumentSnapshot oldestDoc = oldestSnap.Documents[0];
@@ -147,7 +148,7 @@ namespace Business_Management_System
 
             oldestDate = oldestOrder.order_date;
 
-            Query newestQue = coll.LimitToLast(1);
+            Query newestQue = coll.Limit(1);
             QuerySnapshot newestSnap = await newestQue.GetSnapshotAsync();
 
             DocumentSnapshot newestDoc = newestSnap.Documents[0];
@@ -167,6 +168,9 @@ namespace Business_Management_System
                     cb_month_yr.Items.Add(year);
                 }
             }
+
+            retrieveStock();
+            finishLoad();
         }
 
         private async Task<double> calculateDailyCost(int year, int month)
@@ -199,49 +203,246 @@ namespace Business_Management_System
         private async void populateChartMonth(int year, int month)
         {
             double dailycost = await calculateDailyCost(year, month);
+            double lifetimeprofit = 0;
+            double profit = 0;
+
+            lifetimeprofit = await getMonthLifetimeProfit(year, month);
 
             //monthly sales report
             foreach (System.DateTime date in AllDatesInMonth(year, month))
             {
                 var search = order_all.FindAll(x => x.order_date.Day == date.Day && x.order_date.Month == date.Month);
 
-                if (search.Count > 0)
-                {
-                    cht_statistics.Series["Profit (Daily)"].Points.AddXY(date.Day, calculateProfit(exe, search) - dailycost);
-                    //cht_statistics.Series["Profit (Lifetime)"].Points.AddXY();
-                }
-                else
-                {
-                    cht_statistics.Series["Profit (Daily)"].Points.AddXY(date.Day, -dailycost);
-                    //cht_statistics.Series["Profit (Lifetime)"].Points.AddXY();
-                }
+                profit = calculateProfit(exe, search);
+
+                lifetimeprofit = lifetimeprofit + profit - dailycost;
+
+                cht_statistics.Series["Profit (Daily)"].Points.AddXY(date.Day, profit - dailycost);
+                cht_statistics.Series["Profit (Lifetime)"].Points.AddXY(date.Day, lifetimeprofit);
             }
         }
 
         private async void populateChartYear(int year)
         {
-            int count = 1;
+            int day = 0;
 
             for (int month = 1; month <= 12; month++)
             {
                 double dailycost = await calculateDailyCost(year, month);
+                double profit = 0;
+                double lifetimeprofit = await getMonthLifetimeProfit(year, month);
 
                 foreach (System.DateTime date in AllDatesInMonth(year, month))
                 {
+                    day++;
+
                     var search = order_all.FindAll(x => x.order_date.Day == date.Day && x.order_date.Month == date.Month);
 
-                    if (search.Count > 0)
+                    profit = calculateProfit(exe, search);
+
+                    lifetimeprofit = lifetimeprofit + profit - dailycost;
+
+                    if ((profit - dailycost) != 0)
                     {
-                        cht_statistics.Series["Profit (Daily)"].Points.AddXY(count++, calculateProfit(exe, search) - dailycost);
-                        //cht_statistics.Series["Profit (Lifetime)"].Points.AddXY();
-                    }
-                    else
-                    {
-                        cht_statistics.Series["Profit (Daily)"].Points.AddXY(count++, -dailycost);
-                        //cht_statistics.Series["Profit (Lifetime)"].Points.AddXY();
+                        cht_statistics.Series["Profit (Daily)"].Points.AddXY(day, profit - dailycost);
+                        cht_statistics.Series["Profit (Lifetime)"].Points.AddXY(day, lifetimeprofit);
                     }
                 }
             }
+        }
+
+        private async Task<double> updateSales(int year, int month)
+        {
+            System.DateTime date = new System.DateTime(year, month, 1, 0, 0, 0, DateTimeKind.Utc);
+
+            Query stockque = db.Collection("sales").WhereEqualTo("sales_date", date);
+
+            QuerySnapshot snap = await stockque.GetSnapshotAsync();
+
+            double profit = 0;
+            double dailycost = 0;
+            //care if month equals 0
+            if (month - 1 == 0)
+            {
+                dailycost = await calculateDailyCost(year - 1, 12);
+            }
+            else
+            {
+                dailycost = await calculateDailyCost(year, month - 1);
+            }
+
+            if (!(year == oldestDate.Year && month == oldestDate.Month))
+            {
+                if (month - 1 == 0)
+                {
+                    profit = await updateSales(year - 1, 12);
+                }
+                else
+                {
+                    profit = await updateSales(year, month - 1);
+                }
+            }
+
+            await retrieveOrder(date.AddMonths(-1), date.AddDays(-1));
+
+            var search = order_all;
+            //care if month equals 0
+            if (month - 1 == 0)
+            {
+                search = order_all.FindAll(x => x.order_date.Year == date.Year - 1 && x.order_date.Month == 12);
+            }
+            else
+            {
+                search = order_all.FindAll(x => x.order_date.Year == date.Year && x.order_date.Month == date.Month - 1);
+            }
+
+            foreach (Order order in search)
+            {
+                foreach (Order_Items order_items in order.order_items)
+                {
+                    var search2 = stock_all.Find(x => x.item_id == order_items.item_id);
+
+                    profit += search2.unit_price * order_items.quantity;
+                }
+            }
+
+            for (int day = 0; day < date.AddMonths(1).AddDays(-1).Day; day++)
+            {
+                profit -= dailycost;
+            }
+
+            CollectionReference coll = db.Collection("sales");
+
+            Dictionary<string, object> data = new Dictionary<string, object>()
+            {
+                {"sales_date", date},
+                {"sales_profit", profit}
+            };
+
+            if (snap.Documents.Count <= 0)
+            {
+                await coll.AddAsync(data);
+
+                order_all.Clear();
+            }
+            else
+            {
+                DocumentReference docref = coll.Document(snap.Documents[0].Id);
+
+                await docref.SetAsync(data);
+            }
+
+            return profit;
+        }
+
+        private async Task<double> getMonthLifetimeProfit(int year, int month)
+        {
+            System.DateTime date = new System.DateTime(year, month, 1, 0, 0, 0, DateTimeKind.Utc);
+
+            Query stockque = db.Collection("sales").WhereEqualTo("sales_date", date);
+
+            QuerySnapshot snap = await stockque.GetSnapshotAsync();
+
+            if (snap.Documents.Count == 0)
+            {
+                stockque = db.Collection("sales").OrderByDescending("sales_date").Limit(1);
+
+                snap = await stockque.GetSnapshotAsync();
+            }
+
+            Sales sales = snap.Documents[0].ConvertTo<Sales>();
+
+            return sales.sales_profit;
+
+            /*System.DateTime date = new System.DateTime(year, month, 1, 0, 0, 0, DateTimeKind.Utc);
+
+            Query stockque = db.Collection("sales").WhereEqualTo("sales_date", date);
+
+            QuerySnapshot snap = await stockque.GetSnapshotAsync();
+
+            if (snap.Documents.Count > 0)
+            {
+                Sales sales = snap.Documents[0].ConvertTo<Sales>();
+
+                return sales.sales_profit;
+            }
+
+            if (snap.Documents.Count <= 0)
+            {
+                double profit = 0;
+                //care if month equals 0
+                double dailycost = await calculateDailyCost(year, month - 1);
+
+                if (!(year == oldestDate.Year && month == oldestDate.Month - 1))
+                {
+                    if (month - 1 == 0)
+                    {
+                        profit = await getMonthLifetimeProfit(year - 1, 12);
+                    }
+                    else
+                    {
+                        profit = await getMonthLifetimeProfit(year, month - 1);
+                    }
+                }
+
+                await retrieveOrder(date.AddMonths(-1), date.AddDays(-1));
+
+                //care if month equals 0
+                var search = order_all.FindAll(x => x.order_date.Year == date.Year && x.order_date.Month == date.Month - 1);
+
+                foreach(Order order in search)
+                {
+                    foreach(Order_Items order_items in order.order_items)
+                    {
+                        var search2 = stock_all.Find(x => x.item_id == order_items.item_id);
+
+                        profit += search2.unit_price * order_items.quantity;
+                    }
+                }
+
+                for(int day = 0; day < date.AddMonths(1).AddDays(-1).Day; day++)
+                {
+                    profit -= dailycost;
+                }
+
+                CollectionReference coll = db.Collection("sales");
+
+                Dictionary<string, object> data = new Dictionary<string, object>()
+                {
+                    {"sales_date", date},
+                    {"sales_profit", profit}
+                };
+                
+                await coll.AddAsync(data);
+
+                order_all.Clear();
+
+                return profit;
+            }
+
+            return 0;*/
+        }
+
+        private async void populateMonthComboBox()
+        {
+            cb_month_mth.Items.Clear();
+
+            for (int month = 1; month <= 12; month++)
+            {
+                System.DateTime from = new System.DateTime(Int32.Parse(cb_month_yr.SelectedItem.ToString()), month, 1, 0, 0, 0, DateTimeKind.Utc);
+                System.DateTime to = from.AddMonths(1).AddDays(-1);
+
+                QuerySnapshot snap = await db.Collection("order").WhereGreaterThanOrEqualTo("order_date", from).WhereLessThanOrEqualTo("order_date", to).GetSnapshotAsync();
+
+                if (snap.Documents.Count > 0)
+                {
+                    cb_month_mth.Items.Add(month);
+                }
+            }
+
+            selectedyear = cb_month_yr.SelectedItem.ToString();
+
+            cb_month_mth.Enabled = true;
         }
 
         public static IEnumerable<System.DateTime> AllDatesInMonth(int year, int month)
@@ -255,7 +456,7 @@ namespace Business_Management_System
 
         string selectedyear;
 
-        private async void cb_month_yr_SelectedIndexChanged(object sender, EventArgs e)
+        private void cb_month_yr_SelectedIndexChanged(object sender, EventArgs e)
         {
             if (cb_month_yr.SelectedItem.ToString() != selectedyear)
             {
@@ -264,29 +465,21 @@ namespace Business_Management_System
 
             if (cb_month_yr.SelectedItem.ToString() != "" && cb_month_yr.SelectedItem.ToString() != selectedyear)
             {
-                cb_month_mth.Items.Clear();
-
-                for (int month = 1; month <= 12; month++)
+                if (cb_range.SelectedIndex == 0)
                 {
-                    System.DateTime from = new System.DateTime(Int32.Parse(cb_month_yr.SelectedItem.ToString()), month, 1, 0, 0, 0, DateTimeKind.Utc);
-                    System.DateTime to = from.AddMonths(1).AddDays(-1);
-
-                    QuerySnapshot snap = await db.Collection("order").WhereGreaterThanOrEqualTo("order_date", from).WhereLessThanOrEqualTo("order_date", to).GetSnapshotAsync();
-
-                    if (snap.Documents.Count > 0)
-                    {
-                        cb_month_mth.Items.Add(month);
-                    }
+                    populateMonthComboBox();
                 }
-
-                selectedyear = cb_month_yr.SelectedItem.ToString();
-
-                cb_month_mth.Enabled = true;
+                else
+                {
+                    btn_run.Enabled = true;
+                }
             }
         }
 
         private void cb_range_SelectedIndexChanged(object sender, EventArgs e)
         {
+            cb_month_yr.Enabled = true;
+
             switch (cb_range.SelectedIndex)
             {
                 case 0:
@@ -308,6 +501,10 @@ namespace Business_Management_System
 
             loading();
 
+            order_all.Clear();
+
+            cht_statistics.Series["Profit (Daily)"].Points.Clear();
+
             switch (cb_range.SelectedIndex)
             {
                 case 0:
@@ -315,12 +512,15 @@ namespace Business_Management_System
                     month = Int32.Parse(cb_month_mth.Text);
 
                     cht_statistics.Series["Profit (Daily)"].IsValueShownAsLabel = true;
+                    cht_statistics.Series["Profit (Daily)"].MarkerStyle = MarkerStyle.Circle;
+                    cht_statistics.Series["Profit (Lifetime)"].IsValueShownAsLabel = true;
+                    cht_statistics.Series["Profit (Lifetime)"].MarkerStyle = MarkerStyle.Circle;
 
                     foreach (var series in cht_statistics.Series)
                     {
                         series.Points.Clear();
                     }
-
+                    
                     exe = await retrieveOrder(new System.DateTime(year, month, 1, 0, 0, 0, DateTimeKind.Utc), new System.DateTime(year, month, System.DateTime.DaysInMonth(year, month), 0, 0, 0, DateTimeKind.Utc));
                     populateChartMonth(year, month);
                     break;
@@ -328,6 +528,9 @@ namespace Business_Management_System
                     year = Int32.Parse(cb_month_yr.Text);
 
                     cht_statistics.Series["Profit (Daily)"].IsValueShownAsLabel = false;
+                    cht_statistics.Series["Profit (Daily)"].MarkerStyle = MarkerStyle.None;
+                    cht_statistics.Series["Profit (Lifetime)"].IsValueShownAsLabel = false;
+                    cht_statistics.Series["Profit (Lifetime)"].MarkerStyle = MarkerStyle.None;
 
                     foreach (var series in cht_statistics.Series)
                     {
