@@ -230,6 +230,7 @@
             this.Margin = new System.Windows.Forms.Padding(4);
             this.Name = "Main";
             this.Text = "Business Management System";
+            this.WindowState = System.Windows.Forms.FormWindowState.Maximized;
             this.pnl_navi.ResumeLayout(false);
             this.pnl_title.ResumeLayout(false);
             this.ResumeLayout(false);

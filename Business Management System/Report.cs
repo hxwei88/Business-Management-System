@@ -220,6 +220,8 @@ namespace Business_Management_System
                 cht_statistics.Series["Profit (Daily)"].Points.AddXY(date.Day, profit - dailycost);
                 cht_statistics.Series["Profit (Lifetime)"].Points.AddXY(date.Day, lifetimeprofit);
             }
+
+            finishLoad();
         }
 
         private async void populateChartYear(int year)
@@ -249,6 +251,8 @@ namespace Business_Management_System
                     }
                 }
             }
+
+            finishLoad();
         }
 
         private async Task<double> updateSales(int year, int month)
@@ -352,7 +356,7 @@ namespace Business_Management_System
 
             Sales sales = snap.Documents[0].ConvertTo<Sales>();
 
-            return sales.sales_profit;
+            return Math.Round(sales.sales_profit, 2);
 
             /*System.DateTime date = new System.DateTime(year, month, 1, 0, 0, 0, DateTimeKind.Utc);
 
@@ -425,6 +429,8 @@ namespace Business_Management_System
 
         private async void populateMonthComboBox()
         {
+            cb_month_mth.Enabled = false;
+
             cb_month_mth.Items.Clear();
 
             for (int month = 1; month <= 12; month++)
@@ -440,8 +446,6 @@ namespace Business_Management_System
                 }
             }
 
-            selectedyear = cb_month_yr.SelectedItem.ToString();
-
             cb_month_mth.Enabled = true;
         }
 
@@ -454,25 +458,15 @@ namespace Business_Management_System
             }
         }
 
-        string selectedyear;
-
         private void cb_month_yr_SelectedIndexChanged(object sender, EventArgs e)
         {
-            if (cb_month_yr.SelectedItem.ToString() != selectedyear)
+            if (cb_range.SelectedIndex == 0)
             {
-                cb_month_mth.Enabled = false;
+                populateMonthComboBox();
             }
-
-            if (cb_month_yr.SelectedItem.ToString() != "" && cb_month_yr.SelectedItem.ToString() != selectedyear)
+            else
             {
-                if (cb_range.SelectedIndex == 0)
-                {
-                    populateMonthComboBox();
-                }
-                else
-                {
-                    btn_run.Enabled = true;
-                }
+                btn_run.Enabled = true;
             }
         }
 
@@ -505,6 +499,9 @@ namespace Business_Management_System
 
             cht_statistics.Series["Profit (Daily)"].Points.Clear();
 
+            Title title = new Title();
+            title.Font = new Font("Impact", 18);
+
             switch (cb_range.SelectedIndex)
             {
                 case 0:
@@ -515,6 +512,12 @@ namespace Business_Management_System
                     cht_statistics.Series["Profit (Daily)"].MarkerStyle = MarkerStyle.Circle;
                     cht_statistics.Series["Profit (Lifetime)"].IsValueShownAsLabel = true;
                     cht_statistics.Series["Profit (Lifetime)"].MarkerStyle = MarkerStyle.Circle;
+                    
+                    title.Text = "Sales Report in " + year + "/" + month;
+
+                    cht_statistics.Titles.Clear();
+                    cht_statistics.Titles.Add(title);
+                    //cht_statistics.ChartAreas["ChartArea1"].AxisX.Interval;
 
                     foreach (var series in cht_statistics.Series)
                     {
@@ -532,6 +535,11 @@ namespace Business_Management_System
                     cht_statistics.Series["Profit (Lifetime)"].IsValueShownAsLabel = false;
                     cht_statistics.Series["Profit (Lifetime)"].MarkerStyle = MarkerStyle.None;
 
+                    title.Text = "Sales Report in " + year;
+
+                    cht_statistics.Titles.Clear();
+                    cht_statistics.Titles.Add(title);
+
                     foreach (var series in cht_statistics.Series)
                     {
                         series.Points.Clear();
@@ -541,8 +549,6 @@ namespace Business_Management_System
                     populateChartYear(year);
                     break;
             }
-
-            finishLoad();
         }
 
         private void cb_month_mth_SelectedIndexChanged(object sender, EventArgs e)
@@ -555,18 +561,16 @@ namespace Business_Management_System
 
         private void loading()
         {
-            pnl_header.Enabled = false;
-            pnl_header.Cursor = Cursors.WaitCursor;
-            pnl_content.Enabled = false;
+            pnl_main.Enabled = false;
             pnl_content.Cursor = Cursors.WaitCursor;
+            pnl_header.Cursor = Cursors.WaitCursor;
         }
 
         private void finishLoad()
         {
-            pnl_header.Enabled = true;
-            pnl_header.Cursor = Cursors.Default;
-            pnl_content.Enabled = true;
+            pnl_main.Enabled = true;
             pnl_content.Cursor = Cursors.Default;
+            pnl_header.Cursor = Cursors.Default;
         }
     }
 }
