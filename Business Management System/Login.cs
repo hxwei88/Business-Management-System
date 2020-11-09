@@ -71,5 +71,13 @@ namespace Business_Management_System
             btn_login.Enabled = true;
             pnl_main.Cursor = Cursors.Default;
         }
+
+        private void link_forget_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        {
+            this.Hide();
+            ForgetPassword form = new ForgetPassword();
+            form.ShowDialog();
+            this.Close();
+        }
     }
 }

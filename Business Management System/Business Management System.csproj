@@ -297,15 +297,15 @@
     <Compile Include="Audit.Designer.cs">
       <DependentUpon>Audit.cs</DependentUpon>
     </Compile>
-    <Compile Include="Database.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
-    <Compile Include="Database.Designer.cs">
-      <DependentUpon>Database.cs</DependentUpon>
-    </Compile>
     <Compile Include="Extensions.cs" />
     <Compile Include="ExTreeView.cs">
       <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="ForgetPassword.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ForgetPassword.Designer.cs">
+      <DependentUpon>ForgetPassword.cs</DependentUpon>
     </Compile>
     <Compile Include="User.cs" />
     <Compile Include="PriceEntryForm.cs">
@@ -358,12 +358,6 @@
     <Compile Include="SearchBar.Designer.cs">
       <DependentUpon>SearchBar.cs</DependentUpon>
     </Compile>
-    <Compile Include="Sell.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
-    <Compile Include="Sell.Designer.cs">
-      <DependentUpon>Sell.cs</DependentUpon>
-    </Compile>
     <Compile Include="Users.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -371,6 +365,9 @@
       <DependentUpon>Users.cs</DependentUpon>
     </Compile>
     <Compile Include="Vendor.cs" />
+    <EmbeddedResource Include="ForgetPassword.resx">
+      <DependentUpon>ForgetPassword.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Users.resx">
       <DependentUpon>Users.cs</DependentUpon>
     </EmbeddedResource>
@@ -394,17 +391,11 @@
     <EmbeddedResource Include="Audit.resx">
       <DependentUpon>Audit.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Database.resx">
-      <DependentUpon>Database.cs</DependentUpon>
-    </EmbeddedResource>
     <EmbeddedResource Include="PriceEntryForm.resx">
       <DependentUpon>PriceEntryForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Load.resx">
       <DependentUpon>Load.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Sell.resx">
-      <DependentUpon>Sell.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Report.resx">
       <DependentUpon>Report.cs</DependentUpon>

@@ -34,7 +34,7 @@
             this.gb_account = new System.Windows.Forms.GroupBox();
             this.tb_email = new System.Windows.Forms.TextBox();
             this.cb_auth = new System.Windows.Forms.ComboBox();
-            this.label1 = new System.Windows.Forms.Label();
+            this.lbl_auth = new System.Windows.Forms.Label();
             this.pnl_main.SuspendLayout();
             this.gb_account.SuspendLayout();
             this.SuspendLayout();
@@ -45,6 +45,7 @@
             this.pnl_main.Dock = System.Windows.Forms.DockStyle.Fill;
             this.pnl_main.Location = new System.Drawing.Point(0, 0);
             this.pnl_main.Name = "pnl_main";
+            this.pnl_main.Padding = new System.Windows.Forms.Padding(10);
             this.pnl_main.Size = new System.Drawing.Size(1228, 751);
             this.pnl_main.TabIndex = 1;
             // 
@@ -59,9 +60,9 @@
             // 
             // btn_create
             // 
-            this.btn_create.Location = new System.Drawing.Point(332, 194);
+            this.btn_create.Location = new System.Drawing.Point(50, 196);
             this.btn_create.Name = "btn_create";
-            this.btn_create.Size = new System.Drawing.Size(75, 23);
+            this.btn_create.Size = new System.Drawing.Size(311, 55);
             this.btn_create.TabIndex = 7;
             this.btn_create.Text = "Create";
             this.btn_create.UseVisualStyleBackColor = true;
@@ -69,14 +70,15 @@
             // 
             // gb_account
             // 
-            this.gb_account.Controls.Add(this.label1);
+            this.gb_account.Controls.Add(this.lbl_auth);
             this.gb_account.Controls.Add(this.cb_auth);
             this.gb_account.Controls.Add(this.tb_email);
             this.gb_account.Controls.Add(this.btn_create);
             this.gb_account.Controls.Add(this.lbl_email);
-            this.gb_account.Location = new System.Drawing.Point(29, 34);
+            this.gb_account.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.gb_account.Location = new System.Drawing.Point(10, 10);
             this.gb_account.Name = "gb_account";
-            this.gb_account.Size = new System.Drawing.Size(485, 244);
+            this.gb_account.Size = new System.Drawing.Size(1208, 731);
             this.gb_account.TabIndex = 8;
             this.gb_account.TabStop = false;
             this.gb_account.Text = "Create An Account";
@@ -99,14 +101,14 @@
             this.cb_auth.Size = new System.Drawing.Size(121, 24);
             this.cb_auth.TabIndex = 9;
             // 
-            // label1
+            // lbl_auth
             // 
-            this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(47, 129);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(64, 17);
-            this.label1.TabIndex = 10;
-            this.label1.Text = "Authority";
+            this.lbl_auth.AutoSize = true;
+            this.lbl_auth.Location = new System.Drawing.Point(47, 129);
+            this.lbl_auth.Name = "lbl_auth";
+            this.lbl_auth.Size = new System.Drawing.Size(64, 17);
+            this.lbl_auth.TabIndex = 10;
+            this.lbl_auth.Text = "Authority";
             // 
             // Users
             // 
@@ -129,7 +131,7 @@
         private System.Windows.Forms.Button btn_create;
         private System.Windows.Forms.Label lbl_email;
         private System.Windows.Forms.TextBox tb_email;
-        private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.Label lbl_auth;
         private System.Windows.Forms.ComboBox cb_auth;
     }
 }

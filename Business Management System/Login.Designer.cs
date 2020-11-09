@@ -32,7 +32,7 @@
             this.lbl_password = new System.Windows.Forms.Label();
             this.txt_user = new System.Windows.Forms.TextBox();
             this.txt_password = new System.Windows.Forms.TextBox();
-            this.link_register = new System.Windows.Forms.LinkLabel();
+            this.link_forget = new System.Windows.Forms.LinkLabel();
             this.pnl_main = new System.Windows.Forms.Panel();
             this.btn_login = new System.Windows.Forms.Button();
             this.pnl_main.SuspendLayout();
@@ -81,26 +81,26 @@
             this.txt_password.TabIndex = 3;
             this.txt_password.UseSystemPasswordChar = true;
             // 
-            // link_register
+            // link_forget
             // 
-            this.link_register.ActiveLinkColor = System.Drawing.Color.Yellow;
-            this.link_register.AutoSize = true;
-            this.link_register.Enabled = false;
-            this.link_register.Font = new System.Drawing.Font("Arial", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.link_register.LinkColor = System.Drawing.Color.FromArgb(((int)(((byte)(128)))), ((int)(((byte)(255)))), ((int)(((byte)(255)))));
-            this.link_register.Location = new System.Drawing.Point(158, 402);
-            this.link_register.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            this.link_register.Name = "link_register";
-            this.link_register.Size = new System.Drawing.Size(206, 19);
-            this.link_register.TabIndex = 7;
-            this.link_register.TabStop = true;
-            this.link_register.Text = "No account? Register Here";
-            this.link_register.VisitedLinkColor = System.Drawing.Color.Lime;
+            this.link_forget.ActiveLinkColor = System.Drawing.Color.Yellow;
+            this.link_forget.AutoSize = true;
+            this.link_forget.Font = new System.Drawing.Font("Arial", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.link_forget.LinkColor = System.Drawing.Color.FromArgb(((int)(((byte)(128)))), ((int)(((byte)(255)))), ((int)(((byte)(255)))));
+            this.link_forget.Location = new System.Drawing.Point(139, 401);
+            this.link_forget.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.link_forget.Name = "link_forget";
+            this.link_forget.Size = new System.Drawing.Size(222, 19);
+            this.link_forget.TabIndex = 7;
+            this.link_forget.TabStop = true;
+            this.link_forget.Text = "Forget Password? Click Here";
+            this.link_forget.VisitedLinkColor = System.Drawing.Color.Lime;
+            this.link_forget.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.link_forget_LinkClicked);
             // 
             // pnl_main
             // 
             this.pnl_main.Controls.Add(this.txt_user);
-            this.pnl_main.Controls.Add(this.link_register);
+            this.pnl_main.Controls.Add(this.link_forget);
             this.pnl_main.Controls.Add(this.lbl_user);
             this.pnl_main.Controls.Add(this.btn_login);
             this.pnl_main.Controls.Add(this.lbl_password);
@@ -156,7 +156,7 @@
         private System.Windows.Forms.TextBox txt_user;
         private System.Windows.Forms.TextBox txt_password;
         private System.Windows.Forms.Button btn_login;
-        private System.Windows.Forms.LinkLabel link_register;
+        private System.Windows.Forms.LinkLabel link_forget;
         private System.Windows.Forms.Panel pnl_main;
     }
 }
