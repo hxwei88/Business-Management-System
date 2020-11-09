@@ -354,7 +354,7 @@ namespace Business_Management_System
         private void uc_srchbar()
         {
             ctrl_search.Dock = DockStyle.Top;
-            pnl_search.Controls.Add(ctrl_search);
+            //pnl_search.Controls.Add(ctrl_search);
         }
 
         private void btn_save_Click(object sender, EventArgs e)
@@ -474,6 +474,12 @@ namespace Business_Management_System
                                 await docref.SetAsync(data);
                             }
                         }
+
+                        PriceEntryForm form = new PriceEntryForm(add_coll);
+
+                        form.Show();
+
+                        form.FormClosed += new FormClosedEventHandler(Form_Closed);
                     }
                 }
                 catch
@@ -487,12 +493,6 @@ namespace Business_Management_System
 
             releaseObject(xlWorkBook);
             releaseObject(xlApp);
-
-            PriceEntryForm form = new PriceEntryForm(add_coll);
-
-            form.Show();
-
-            form.FormClosed += new FormClosedEventHandler(Form_Closed);
         }
 
         async void Form_Closed(object sender, FormClosedEventArgs e)

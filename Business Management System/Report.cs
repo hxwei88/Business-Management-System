@@ -30,15 +30,14 @@ namespace Business_Management_System
         public Report()
         {
             InitializeComponent();
-            order_all = new List<Order>();
-            stock_all = new List<Stock>();
-            connectDb();
-            getDate();
         }
 
         private void Report_Load(object sender, EventArgs e)
         {
-            
+            order_all = new List<Order>();
+            stock_all = new List<Stock>();
+            connectDb();
+            getDate();
         }
 
         private void connectDb()
@@ -171,6 +170,8 @@ namespace Business_Management_System
 
             retrieveStock();
             finishLoad();
+
+            pnl_option.Hide();
         }
 
         private async Task<double> calculateDailyCost(int year, int month)
@@ -204,6 +205,7 @@ namespace Business_Management_System
         {
             double dailycost = await calculateDailyCost(year, month);
             double lifetimeprofit = 0;
+            double lifetimePercent = 0;
             double profit = 0;
 
             lifetimeprofit = await getMonthLifetimeProfit(year, month);
@@ -221,12 +223,32 @@ namespace Business_Management_System
                 cht_statistics.Series["Profit (Lifetime)"].Points.AddXY(date.Day, lifetimeprofit);
             }
 
+            lifetimePercent = (cht_statistics.Series["Profit (Lifetime)"].Points.Last().YValues[0] - cht_statistics.Series["Profit (Lifetime)"].Points.First().YValues[0]) / cht_statistics.Series["Profit (Lifetime)"].Points.First().YValues[0];
+
+            MessageBox.Show(cht_statistics.Series["Profit (Lifetime)"].Points.Last().YValues[0].ToString());
+            MessageBox.Show(cht_statistics.Series["Profit (Lifetime)"].Points.First().YValues[0].ToString());
+
+            if (lifetimePercent > 0)
+            {
+                lbl_sales_percent_lifetime.ForeColor = System.Drawing.Color.Green;
+                lbl_sales_percent_lifetime.Text = "+";
+            }
+
+            if (lifetimePercent < 0)
+            {
+                lbl_sales_percent_lifetime.ForeColor = System.Drawing.Color.Red;
+                lbl_sales_percent_lifetime.Text = "-";
+            }
+
+            lbl_sales_percent_lifetime.Text += Math.Round((lifetimePercent * 100), 0).ToString() + "%";
+
             finishLoad();
         }
 
         private async void populateChartYear(int year)
         {
             int day = 0;
+            double lifetimePercent = 0;
 
             for (int month = 1; month <= 12; month++)
             {
@@ -251,6 +273,22 @@ namespace Business_Management_System
                     }
                 }
             }
+
+            lifetimePercent = (cht_statistics.Series["Profit (Lifetime)"].Points.Last().YValues[0] - cht_statistics.Series["Profit (Lifetime)"].Points.First().YValues[0]) / cht_statistics.Series["Profit (Lifetime)"].Points.First().YValues[0];
+
+            if (lifetimePercent > 0)
+            {
+                lbl_sales_percent_lifetime.ForeColor = System.Drawing.Color.Green;
+                lbl_sales_percent_lifetime.Text = "+";
+            }
+
+            if (lifetimePercent < 0)
+            {
+                lbl_sales_percent_lifetime.ForeColor = System.Drawing.Color.Red;
+                lbl_sales_percent_lifetime.Text = "-";
+            }
+
+            lbl_sales_percent_lifetime.Text += Math.Round(lifetimePercent, 0).ToString();
 
             finishLoad();
         }
@@ -492,6 +530,7 @@ namespace Business_Management_System
         {
             int year;
             int month;
+            double lifetimePercent = 0;
 
             loading();
 
@@ -508,9 +547,7 @@ namespace Business_Management_System
                     year = Int32.Parse(cb_month_yr.Text);
                     month = Int32.Parse(cb_month_mth.Text);
 
-                    cht_statistics.Series["Profit (Daily)"].IsValueShownAsLabel = true;
                     cht_statistics.Series["Profit (Daily)"].MarkerStyle = MarkerStyle.Circle;
-                    cht_statistics.Series["Profit (Lifetime)"].IsValueShownAsLabel = true;
                     cht_statistics.Series["Profit (Lifetime)"].MarkerStyle = MarkerStyle.Circle;
                     
                     title.Text = "Sales Report in " + year + "/" + month;
@@ -564,6 +601,7 @@ namespace Business_Management_System
             pnl_main.Enabled = false;
             pnl_content.Cursor = Cursors.WaitCursor;
             pnl_header.Cursor = Cursors.WaitCursor;
+            pnl_option.Hide();
         }
 
         private void finishLoad()
@@ -571,6 +609,45 @@ namespace Business_Management_System
             pnl_main.Enabled = true;
             pnl_content.Cursor = Cursors.Default;
             pnl_header.Cursor = Cursors.Default;
+            pnl_option.Show();
+        }
+
+        private void cb_sales_num_CheckedChanged(object sender, EventArgs e)
+        {
+            if (cb_sales_num.Checked)
+            {
+                cht_statistics.Series["Profit (Lifetime)"].IsValueShownAsLabel = true;
+                cht_statistics.Series["Profit (Daily)"].IsValueShownAsLabel = true;
+            }
+            else
+            {
+                cht_statistics.Series["Profit (Lifetime)"].IsValueShownAsLabel = false;
+                cht_statistics.Series["Profit (Daily)"].IsValueShownAsLabel = false;
+            }    
+        }
+
+        private void cb_hide_daily_CheckedChanged(object sender, EventArgs e)
+        {
+            if (cb_hide_daily.Checked)
+            {
+                cht_statistics.Series["Profit (Daily)"].Enabled = false;
+            }
+            else
+            {
+                cht_statistics.Series["Profit (Daily)"].Enabled = true;
+            }
+        }
+
+        private void cb_hide_lifetime_CheckedChanged(object sender, EventArgs e)
+        {
+            if (cb_hide_lifetime.Checked)
+            {
+                cht_statistics.Series["Profit (Lifetime)"].Enabled = false;
+            }
+            else
+            {
+                cht_statistics.Series["Profit (Lifetime)"].Enabled = true;
+            }
         }
     }
 }

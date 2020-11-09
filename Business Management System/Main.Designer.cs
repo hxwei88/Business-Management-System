@@ -29,11 +29,9 @@
         private void InitializeComponent()
         {
             this.pnl_navi = new System.Windows.Forms.Panel();
-            this.btn_database = new System.Windows.Forms.Button();
             this.btn_storage = new System.Windows.Forms.Button();
             this.btn_report = new System.Windows.Forms.Button();
             this.btn_audit = new System.Windows.Forms.Button();
-            this.btn_sell = new System.Windows.Forms.Button();
             this.btn_login = new System.Windows.Forms.Button();
             this.pnl_title = new System.Windows.Forms.Panel();
             this.lbl_brand = new System.Windows.Forms.Label();
@@ -45,11 +43,9 @@
             // pnl_navi
             // 
             this.pnl_navi.BackColor = System.Drawing.Color.Black;
-            this.pnl_navi.Controls.Add(this.btn_database);
             this.pnl_navi.Controls.Add(this.btn_storage);
             this.pnl_navi.Controls.Add(this.btn_report);
             this.pnl_navi.Controls.Add(this.btn_audit);
-            this.pnl_navi.Controls.Add(this.btn_sell);
             this.pnl_navi.Controls.Add(this.btn_login);
             this.pnl_navi.Controls.Add(this.pnl_title);
             this.pnl_navi.Dock = System.Windows.Forms.DockStyle.Left;
@@ -58,27 +54,6 @@
             this.pnl_navi.Name = "pnl_navi";
             this.pnl_navi.Size = new System.Drawing.Size(267, 751);
             this.pnl_navi.TabIndex = 0;
-            // 
-            // btn_database
-            // 
-            this.btn_database.BackColor = System.Drawing.Color.Gray;
-            this.btn_database.Dock = System.Windows.Forms.DockStyle.Top;
-            this.btn_database.FlatAppearance.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(192)))), ((int)(((byte)(192)))));
-            this.btn_database.FlatAppearance.BorderSize = 0;
-            this.btn_database.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btn_database.Font = new System.Drawing.Font("Impact", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btn_database.ForeColor = System.Drawing.Color.White;
-            this.btn_database.Image = global::Business_Management_System.Properties.Resources.database;
-            this.btn_database.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btn_database.Location = new System.Drawing.Point(0, 315);
-            this.btn_database.Margin = new System.Windows.Forms.Padding(4);
-            this.btn_database.Name = "btn_database";
-            this.btn_database.Padding = new System.Windows.Forms.Padding(33, 0, 0, 0);
-            this.btn_database.Size = new System.Drawing.Size(267, 48);
-            this.btn_database.TabIndex = 6;
-            this.btn_database.Text = "DATABASE";
-            this.btn_database.UseVisualStyleBackColor = false;
-            this.btn_database.Click += new System.EventHandler(this.btn_database_Click);
             // 
             // btn_storage
             // 
@@ -91,7 +66,7 @@
             this.btn_storage.ForeColor = System.Drawing.Color.White;
             this.btn_storage.Image = global::Business_Management_System.Properties.Resources.storage;
             this.btn_storage.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btn_storage.Location = new System.Drawing.Point(0, 267);
+            this.btn_storage.Location = new System.Drawing.Point(0, 219);
             this.btn_storage.Margin = new System.Windows.Forms.Padding(4);
             this.btn_storage.Name = "btn_storage";
             this.btn_storage.Padding = new System.Windows.Forms.Padding(33, 0, 0, 0);
@@ -112,7 +87,7 @@
             this.btn_report.ForeColor = System.Drawing.Color.White;
             this.btn_report.Image = global::Business_Management_System.Properties.Resources.report;
             this.btn_report.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btn_report.Location = new System.Drawing.Point(0, 219);
+            this.btn_report.Location = new System.Drawing.Point(0, 171);
             this.btn_report.Margin = new System.Windows.Forms.Padding(4);
             this.btn_report.Name = "btn_report";
             this.btn_report.Padding = new System.Windows.Forms.Padding(33, 0, 0, 0);
@@ -133,7 +108,7 @@
             this.btn_audit.ForeColor = System.Drawing.Color.White;
             this.btn_audit.Image = global::Business_Management_System.Properties.Resources.audit;
             this.btn_audit.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btn_audit.Location = new System.Drawing.Point(0, 171);
+            this.btn_audit.Location = new System.Drawing.Point(0, 123);
             this.btn_audit.Margin = new System.Windows.Forms.Padding(4);
             this.btn_audit.Name = "btn_audit";
             this.btn_audit.Padding = new System.Windows.Forms.Padding(33, 0, 0, 0);
@@ -142,27 +117,6 @@
             this.btn_audit.Text = "AUDIT";
             this.btn_audit.UseVisualStyleBackColor = false;
             this.btn_audit.Click += new System.EventHandler(this.btn_audit_Click);
-            // 
-            // btn_sell
-            // 
-            this.btn_sell.BackColor = System.Drawing.Color.Gray;
-            this.btn_sell.Dock = System.Windows.Forms.DockStyle.Top;
-            this.btn_sell.FlatAppearance.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(192)))), ((int)(((byte)(192)))));
-            this.btn_sell.FlatAppearance.BorderSize = 0;
-            this.btn_sell.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btn_sell.Font = new System.Drawing.Font("Impact", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btn_sell.ForeColor = System.Drawing.Color.White;
-            this.btn_sell.Image = global::Business_Management_System.Properties.Resources.home;
-            this.btn_sell.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btn_sell.Location = new System.Drawing.Point(0, 123);
-            this.btn_sell.Margin = new System.Windows.Forms.Padding(4);
-            this.btn_sell.Name = "btn_sell";
-            this.btn_sell.Padding = new System.Windows.Forms.Padding(33, 0, 0, 0);
-            this.btn_sell.Size = new System.Drawing.Size(267, 48);
-            this.btn_sell.TabIndex = 5;
-            this.btn_sell.Text = "SELL";
-            this.btn_sell.UseVisualStyleBackColor = false;
-            this.btn_sell.Click += new System.EventHandler(this.btn_sell_Click);
             // 
             // btn_login
             // 
@@ -247,7 +201,5 @@
         private System.Windows.Forms.Button btn_report;
         private System.Windows.Forms.Button btn_audit;
         private System.Windows.Forms.Button btn_login;
-        private System.Windows.Forms.Button btn_database;
-        private System.Windows.Forms.Button btn_sell;
     }
 }

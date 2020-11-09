@@ -28,10 +28,10 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea5 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
-            System.Windows.Forms.DataVisualization.Charting.Legend legend5 = new System.Windows.Forms.DataVisualization.Charting.Legend();
-            System.Windows.Forms.DataVisualization.Charting.Series series9 = new System.Windows.Forms.DataVisualization.Charting.Series();
-            System.Windows.Forms.DataVisualization.Charting.Series series10 = new System.Windows.Forms.DataVisualization.Charting.Series();
+            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea1 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
+            System.Windows.Forms.DataVisualization.Charting.Legend legend1 = new System.Windows.Forms.DataVisualization.Charting.Legend();
+            System.Windows.Forms.DataVisualization.Charting.Series series1 = new System.Windows.Forms.DataVisualization.Charting.Series();
+            System.Windows.Forms.DataVisualization.Charting.Series series2 = new System.Windows.Forms.DataVisualization.Charting.Series();
             this.pnl_header = new System.Windows.Forms.Panel();
             this.cb_month_mth = new System.Windows.Forms.ComboBox();
             this.label2 = new System.Windows.Forms.Label();
@@ -40,12 +40,20 @@
             this.btn_run = new System.Windows.Forms.Button();
             this.cb_range = new System.Windows.Forms.ComboBox();
             this.pnl_content = new System.Windows.Forms.Panel();
-            this.cht_statistics = new System.Windows.Forms.DataVisualization.Charting.Chart();
             this.pnl_main = new System.Windows.Forms.Panel();
+            this.cht_statistics = new System.Windows.Forms.DataVisualization.Charting.Chart();
+            this.pnl_option = new System.Windows.Forms.Panel();
+            this.cb_sales_num = new System.Windows.Forms.CheckBox();
+            this.lbl_sales_status_monthly = new System.Windows.Forms.Label();
+            this.cb_hide_daily = new System.Windows.Forms.CheckBox();
+            this.cb_hide_lifetime = new System.Windows.Forms.CheckBox();
+            this.lbl_sales_title_lifetime = new System.Windows.Forms.Label();
+            this.lbl_sales_percent_lifetime = new System.Windows.Forms.Label();
             this.pnl_header.SuspendLayout();
             this.pnl_content.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.cht_statistics)).BeginInit();
             this.pnl_main.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.cht_statistics)).BeginInit();
+            this.pnl_option.SuspendLayout();
             this.SuspendLayout();
             // 
             // pnl_header
@@ -161,43 +169,123 @@
             this.pnl_content.Size = new System.Drawing.Size(1228, 721);
             this.pnl_content.TabIndex = 1;
             // 
-            // cht_statistics
-            // 
-            chartArea5.Name = "ChartArea1";
-            this.cht_statistics.ChartAreas.Add(chartArea5);
-            this.cht_statistics.Dock = System.Windows.Forms.DockStyle.Fill;
-            legend5.Font = new System.Drawing.Font("Impact", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            legend5.IsTextAutoFit = false;
-            legend5.Name = "Legend1";
-            this.cht_statistics.Legends.Add(legend5);
-            this.cht_statistics.Location = new System.Drawing.Point(0, 63);
-            this.cht_statistics.Margin = new System.Windows.Forms.Padding(4);
-            this.cht_statistics.Name = "cht_statistics";
-            series9.ChartArea = "ChartArea1";
-            series9.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Spline;
-            series9.IsValueShownAsLabel = true;
-            series9.Legend = "Legend1";
-            series9.MarkerStyle = System.Windows.Forms.DataVisualization.Charting.MarkerStyle.Circle;
-            series9.Name = "Profit (Daily)";
-            series10.ChartArea = "ChartArea1";
-            series10.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Spline;
-            series10.Legend = "Legend1";
-            series10.Name = "Profit (Lifetime)";
-            this.cht_statistics.Series.Add(series9);
-            this.cht_statistics.Series.Add(series10);
-            this.cht_statistics.Size = new System.Drawing.Size(1228, 658);
-            this.cht_statistics.TabIndex = 0;
-            this.cht_statistics.Text = "chart1";
-            // 
             // pnl_main
             // 
             this.pnl_main.Controls.Add(this.cht_statistics);
+            this.pnl_main.Controls.Add(this.pnl_option);
             this.pnl_main.Controls.Add(this.pnl_header);
             this.pnl_main.Dock = System.Windows.Forms.DockStyle.Fill;
             this.pnl_main.Location = new System.Drawing.Point(0, 0);
             this.pnl_main.Name = "pnl_main";
             this.pnl_main.Size = new System.Drawing.Size(1228, 721);
             this.pnl_main.TabIndex = 1;
+            // 
+            // cht_statistics
+            // 
+            chartArea1.Name = "ChartArea1";
+            this.cht_statistics.ChartAreas.Add(chartArea1);
+            this.cht_statistics.Dock = System.Windows.Forms.DockStyle.Fill;
+            legend1.Font = new System.Drawing.Font("Impact", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            legend1.IsTextAutoFit = false;
+            legend1.Name = "Legend1";
+            this.cht_statistics.Legends.Add(legend1);
+            this.cht_statistics.Location = new System.Drawing.Point(0, 63);
+            this.cht_statistics.Margin = new System.Windows.Forms.Padding(4);
+            this.cht_statistics.Name = "cht_statistics";
+            series1.ChartArea = "ChartArea1";
+            series1.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Spline;
+            series1.Legend = "Legend1";
+            series1.MarkerStyle = System.Windows.Forms.DataVisualization.Charting.MarkerStyle.Circle;
+            series1.Name = "Profit (Daily)";
+            series2.ChartArea = "ChartArea1";
+            series2.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Spline;
+            series2.Legend = "Legend1";
+            series2.MarkerStyle = System.Windows.Forms.DataVisualization.Charting.MarkerStyle.Circle;
+            series2.Name = "Profit (Lifetime)";
+            this.cht_statistics.Series.Add(series1);
+            this.cht_statistics.Series.Add(series2);
+            this.cht_statistics.Size = new System.Drawing.Size(1028, 658);
+            this.cht_statistics.TabIndex = 0;
+            this.cht_statistics.Text = "chart1";
+            // 
+            // pnl_option
+            // 
+            this.pnl_option.Controls.Add(this.lbl_sales_percent_lifetime);
+            this.pnl_option.Controls.Add(this.lbl_sales_title_lifetime);
+            this.pnl_option.Controls.Add(this.cb_hide_lifetime);
+            this.pnl_option.Controls.Add(this.cb_hide_daily);
+            this.pnl_option.Controls.Add(this.lbl_sales_status_monthly);
+            this.pnl_option.Controls.Add(this.cb_sales_num);
+            this.pnl_option.Dock = System.Windows.Forms.DockStyle.Right;
+            this.pnl_option.Location = new System.Drawing.Point(1028, 63);
+            this.pnl_option.Name = "pnl_option";
+            this.pnl_option.Size = new System.Drawing.Size(200, 658);
+            this.pnl_option.TabIndex = 1;
+            // 
+            // cb_sales_num
+            // 
+            this.cb_sales_num.AutoSize = true;
+            this.cb_sales_num.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.cb_sales_num.Location = new System.Drawing.Point(24, 22);
+            this.cb_sales_num.Name = "cb_sales_num";
+            this.cb_sales_num.Size = new System.Drawing.Size(157, 21);
+            this.cb_sales_num.TabIndex = 0;
+            this.cb_sales_num.Text = "Show Sales Number";
+            this.cb_sales_num.UseVisualStyleBackColor = true;
+            this.cb_sales_num.CheckedChanged += new System.EventHandler(this.cb_sales_num_CheckedChanged);
+            // 
+            // lbl_sales_status_monthly
+            // 
+            this.lbl_sales_status_monthly.AutoSize = true;
+            this.lbl_sales_status_monthly.Font = new System.Drawing.Font("Impact", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lbl_sales_status_monthly.Location = new System.Drawing.Point(31, 167);
+            this.lbl_sales_status_monthly.Name = "lbl_sales_status_monthly";
+            this.lbl_sales_status_monthly.Size = new System.Drawing.Size(0, 18);
+            this.lbl_sales_status_monthly.TabIndex = 2;
+            // 
+            // cb_hide_daily
+            // 
+            this.cb_hide_daily.AutoSize = true;
+            this.cb_hide_daily.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.cb_hide_daily.Location = new System.Drawing.Point(24, 61);
+            this.cb_hide_daily.Name = "cb_hide_daily";
+            this.cb_hide_daily.Size = new System.Drawing.Size(141, 21);
+            this.cb_hide_daily.TabIndex = 3;
+            this.cb_hide_daily.Text = "Hide Profit (Daily)";
+            this.cb_hide_daily.UseVisualStyleBackColor = true;
+            this.cb_hide_daily.CheckedChanged += new System.EventHandler(this.cb_hide_daily_CheckedChanged);
+            // 
+            // cb_hide_lifetime
+            // 
+            this.cb_hide_lifetime.AutoSize = true;
+            this.cb_hide_lifetime.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.cb_hide_lifetime.Location = new System.Drawing.Point(24, 100);
+            this.cb_hide_lifetime.Name = "cb_hide_lifetime";
+            this.cb_hide_lifetime.Size = new System.Drawing.Size(159, 21);
+            this.cb_hide_lifetime.TabIndex = 4;
+            this.cb_hide_lifetime.Text = "Hide Profit (Lifetime)";
+            this.cb_hide_lifetime.UseVisualStyleBackColor = true;
+            this.cb_hide_lifetime.CheckedChanged += new System.EventHandler(this.cb_hide_lifetime_CheckedChanged);
+            // 
+            // lbl_sales_title_lifetime
+            // 
+            this.lbl_sales_title_lifetime.AutoSize = true;
+            this.lbl_sales_title_lifetime.Font = new System.Drawing.Font("Impact", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lbl_sales_title_lifetime.Location = new System.Drawing.Point(21, 196);
+            this.lbl_sales_title_lifetime.Name = "lbl_sales_title_lifetime";
+            this.lbl_sales_title_lifetime.Size = new System.Drawing.Size(120, 18);
+            this.lbl_sales_title_lifetime.TabIndex = 5;
+            this.lbl_sales_title_lifetime.Text = "Sales Improvement:";
+            // 
+            // lbl_sales_percent_lifetime
+            // 
+            this.lbl_sales_percent_lifetime.AutoSize = true;
+            this.lbl_sales_percent_lifetime.Font = new System.Drawing.Font("Impact", 19.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lbl_sales_percent_lifetime.Location = new System.Drawing.Point(17, 241);
+            this.lbl_sales_percent_lifetime.Name = "lbl_sales_percent_lifetime";
+            this.lbl_sales_percent_lifetime.Size = new System.Drawing.Size(95, 42);
+            this.lbl_sales_percent_lifetime.TabIndex = 6;
+            this.lbl_sales_percent_lifetime.Text = "Sales";
             // 
             // Report
             // 
@@ -212,8 +300,10 @@
             this.pnl_header.ResumeLayout(false);
             this.pnl_header.PerformLayout();
             this.pnl_content.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.cht_statistics)).EndInit();
             this.pnl_main.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.cht_statistics)).EndInit();
+            this.pnl_option.ResumeLayout(false);
+            this.pnl_option.PerformLayout();
             this.ResumeLayout(false);
 
         }
@@ -230,5 +320,12 @@
         private System.Windows.Forms.ComboBox cb_range;
         private System.Windows.Forms.Button btn_run;
         private System.Windows.Forms.Panel pnl_main;
+        private System.Windows.Forms.Panel pnl_option;
+        private System.Windows.Forms.Label lbl_sales_status_monthly;
+        private System.Windows.Forms.CheckBox cb_sales_num;
+        private System.Windows.Forms.Label lbl_sales_percent_lifetime;
+        private System.Windows.Forms.Label lbl_sales_title_lifetime;
+        private System.Windows.Forms.CheckBox cb_hide_lifetime;
+        private System.Windows.Forms.CheckBox cb_hide_daily;
     }
 }
