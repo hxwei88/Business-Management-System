@@ -22,5 +22,8 @@ namespace Business_Management_System
 
         [FirestoreProperty]
         public string password { get; set; }
+
+        [FirestoreProperty]
+        public string email { get; set; }
     }
 }

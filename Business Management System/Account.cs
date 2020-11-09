@@ -45,32 +45,46 @@ namespace Business_Management_System
             else
             {
                 updateName();
-                btn_name.Text = "Edit";
-                tb_name.Enabled = false;
             }
         }
 
         private async void updateName()
         {
-            Query query = db.Collection("user").WhereEqualTo("user_id", Int32.Parse(lbl_id.Text.Substring(1)));
-            QuerySnapshot snap = await query.GetSnapshotAsync();
+            load();
+            Query namequery = db.Collection("user").WhereEqualTo("username", tb_name.Text);
+            QuerySnapshot namesnap = await namequery.GetSnapshotAsync();
 
-            string id = snap.Documents[0].Id;
-
-            DocumentReference docref = db.Collection("user").Document(id);
-
-            Dictionary<string, object> data = new Dictionary<string, object>()
+            if (namesnap.Documents.Count == 0)
             {
-                {"username", tb_name.Text}
-            };
+                Query query = db.Collection("user").WhereEqualTo("user_id", Int32.Parse(lbl_id.Text.Substring(1)));
+                QuerySnapshot snap = await query.GetSnapshotAsync();
 
-            await docref.UpdateAsync(data);
+                string id = snap.Documents[0].Id;
 
-            MessageBox.Show("Username Updated!");
+                DocumentReference docref = db.Collection("user").Document(id);
+
+                Dictionary<string, object> data = new Dictionary<string, object>()
+                {
+                    {"username", tb_name.Text}
+                };
+
+                await docref.UpdateAsync(data);
+
+                MessageBox.Show("Username Updated!");
+
+                btn_name.Text = "Edit";
+                tb_name.Enabled = false;
+            }
+            else
+            {
+                MessageBox.Show("Username Taken!");
+            }
+            finishLoad();
         }
 
         private async void updatePassword()
         {
+            load();
             if(tb_password.TextLength == 0 || tb_new_password.TextLength == 0 || tb_confirm_password.TextLength == 0)
             {
                 MessageBox.Show("Please complete the old, new and confirm password!");
@@ -115,6 +129,7 @@ namespace Business_Management_System
                     }
                 }
             }
+            finishLoad();
         }
 
         private void btn_password_Click(object sender, EventArgs e)
@@ -140,6 +155,30 @@ namespace Business_Management_System
         {
             logout = true;
             this.Close();
+        }
+
+        private void load()
+        {
+            pnl_main.Cursor = Cursors.WaitCursor;
+            btn_logout.Enabled = false;
+            btn_name.Enabled = false;
+            btn_password.Enabled = false;
+            tb_name.Enabled = false;
+            tb_password.Enabled = false;
+            tb_new_password.Enabled = false;
+            tb_confirm_password.Enabled = false;
+        }
+
+        private void finishLoad()
+        {
+            pnl_main.Cursor = Cursors.Default;
+            btn_logout.Enabled = true;
+            btn_name.Enabled = true;
+            btn_password.Enabled = true;
+            tb_name.Enabled = true;
+            tb_password.Enabled = true;
+            tb_new_password.Enabled = true;
+            tb_confirm_password.Enabled = true;
         }
     }
 }

@@ -21,6 +21,11 @@ namespace Business_Management_System
 
             //default page
             uc_storage();
+
+            if(user.auth_level == "admin")
+            {
+                btn_users.Show();
+            }
         }
 
         private void uc_storage()
@@ -50,6 +55,15 @@ namespace Business_Management_System
             pnl_main.Controls.Add(ctrl_report);
         }
 
+        private void uc_users()
+        {
+            Users ctrl_users = new Users();
+
+            pnl_main.Controls.Clear();
+            ctrl_users.Dock = DockStyle.Fill;
+            pnl_main.Controls.Add(ctrl_users);
+        }
+
         private void btn_login_Click(object sender, EventArgs e)
         {
             Account account = new Account(user);
@@ -75,6 +89,11 @@ namespace Business_Management_System
         private void btn_report_Click(object sender, EventArgs e)
         {
             uc_report();
+        }
+
+        private void btn_users_Click(object sender, EventArgs e)
+        {
+            uc_users();
         }
     }
 }

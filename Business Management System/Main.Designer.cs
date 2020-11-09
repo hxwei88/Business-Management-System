@@ -29,13 +29,14 @@
         private void InitializeComponent()
         {
             this.pnl_navi = new System.Windows.Forms.Panel();
+            this.pnl_title = new System.Windows.Forms.Panel();
+            this.lbl_brand = new System.Windows.Forms.Label();
+            this.pnl_main = new System.Windows.Forms.Panel();
+            this.btn_users = new System.Windows.Forms.Button();
             this.btn_storage = new System.Windows.Forms.Button();
             this.btn_report = new System.Windows.Forms.Button();
             this.btn_audit = new System.Windows.Forms.Button();
             this.btn_login = new System.Windows.Forms.Button();
-            this.pnl_title = new System.Windows.Forms.Panel();
-            this.lbl_brand = new System.Windows.Forms.Label();
-            this.pnl_main = new System.Windows.Forms.Panel();
             this.pnl_navi.SuspendLayout();
             this.pnl_title.SuspendLayout();
             this.SuspendLayout();
@@ -43,6 +44,7 @@
             // pnl_navi
             // 
             this.pnl_navi.BackColor = System.Drawing.Color.Black;
+            this.pnl_navi.Controls.Add(this.btn_users);
             this.pnl_navi.Controls.Add(this.btn_storage);
             this.pnl_navi.Controls.Add(this.btn_report);
             this.pnl_navi.Controls.Add(this.btn_audit);
@@ -54,6 +56,61 @@
             this.pnl_navi.Name = "pnl_navi";
             this.pnl_navi.Size = new System.Drawing.Size(267, 751);
             this.pnl_navi.TabIndex = 0;
+            // 
+            // pnl_title
+            // 
+            this.pnl_title.BackColor = System.Drawing.Color.Black;
+            this.pnl_title.Controls.Add(this.lbl_brand);
+            this.pnl_title.Dock = System.Windows.Forms.DockStyle.Top;
+            this.pnl_title.Location = new System.Drawing.Point(0, 0);
+            this.pnl_title.Margin = new System.Windows.Forms.Padding(4);
+            this.pnl_title.Name = "pnl_title";
+            this.pnl_title.Size = new System.Drawing.Size(267, 123);
+            this.pnl_title.TabIndex = 0;
+            // 
+            // lbl_brand
+            // 
+            this.lbl_brand.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.lbl_brand.Font = new System.Drawing.Font("Gill Sans Ultra Bold", 36F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lbl_brand.ForeColor = System.Drawing.Color.White;
+            this.lbl_brand.Location = new System.Drawing.Point(0, 0);
+            this.lbl_brand.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.lbl_brand.Name = "lbl_brand";
+            this.lbl_brand.Size = new System.Drawing.Size(267, 123);
+            this.lbl_brand.TabIndex = 0;
+            this.lbl_brand.Text = "EKIA";
+            this.lbl_brand.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // pnl_main
+            // 
+            this.pnl_main.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.pnl_main.Location = new System.Drawing.Point(267, 0);
+            this.pnl_main.Margin = new System.Windows.Forms.Padding(4);
+            this.pnl_main.Name = "pnl_main";
+            this.pnl_main.Size = new System.Drawing.Size(1228, 751);
+            this.pnl_main.TabIndex = 2;
+            // 
+            // btn_users
+            // 
+            this.btn_users.BackColor = System.Drawing.Color.Gray;
+            this.btn_users.Dock = System.Windows.Forms.DockStyle.Top;
+            this.btn_users.FlatAppearance.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(192)))), ((int)(((byte)(192)))));
+            this.btn_users.FlatAppearance.BorderSize = 0;
+            this.btn_users.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btn_users.Font = new System.Drawing.Font("Impact", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btn_users.ForeColor = System.Drawing.Color.White;
+            this.btn_users.Image = global::Business_Management_System.Properties.Resources.users_manage;
+            this.btn_users.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.btn_users.Location = new System.Drawing.Point(0, 267);
+            this.btn_users.Margin = new System.Windows.Forms.Padding(4);
+            this.btn_users.Name = "btn_users";
+            this.btn_users.Padding = new System.Windows.Forms.Padding(33, 0, 0, 0);
+            this.btn_users.Size = new System.Drawing.Size(267, 48);
+            this.btn_users.TabIndex = 5;
+            this.btn_users.Text = "USERS";
+            this.btn_users.UseVisualStyleBackColor = false;
+            this.btn_users.Visible = false;
+            this.btn_users.Click += new System.EventHandler(this.btn_users_Click);
             // 
             // btn_storage
             // 
@@ -139,39 +196,6 @@
             this.btn_login.UseVisualStyleBackColor = false;
             this.btn_login.Click += new System.EventHandler(this.btn_login_Click);
             // 
-            // pnl_title
-            // 
-            this.pnl_title.BackColor = System.Drawing.Color.Black;
-            this.pnl_title.Controls.Add(this.lbl_brand);
-            this.pnl_title.Dock = System.Windows.Forms.DockStyle.Top;
-            this.pnl_title.Location = new System.Drawing.Point(0, 0);
-            this.pnl_title.Margin = new System.Windows.Forms.Padding(4);
-            this.pnl_title.Name = "pnl_title";
-            this.pnl_title.Size = new System.Drawing.Size(267, 123);
-            this.pnl_title.TabIndex = 0;
-            // 
-            // lbl_brand
-            // 
-            this.lbl_brand.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.lbl_brand.Font = new System.Drawing.Font("Gill Sans Ultra Bold", 36F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lbl_brand.ForeColor = System.Drawing.Color.White;
-            this.lbl_brand.Location = new System.Drawing.Point(0, 0);
-            this.lbl_brand.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            this.lbl_brand.Name = "lbl_brand";
-            this.lbl_brand.Size = new System.Drawing.Size(267, 123);
-            this.lbl_brand.TabIndex = 0;
-            this.lbl_brand.Text = "EKIA";
-            this.lbl_brand.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            // 
-            // pnl_main
-            // 
-            this.pnl_main.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.pnl_main.Location = new System.Drawing.Point(267, 0);
-            this.pnl_main.Margin = new System.Windows.Forms.Padding(4);
-            this.pnl_main.Name = "pnl_main";
-            this.pnl_main.Size = new System.Drawing.Size(1228, 751);
-            this.pnl_main.TabIndex = 2;
-            // 
             // Main
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
@@ -201,5 +225,6 @@
         private System.Windows.Forms.Button btn_report;
         private System.Windows.Forms.Button btn_audit;
         private System.Windows.Forms.Button btn_login;
+        private System.Windows.Forms.Button btn_users;
     }
 }

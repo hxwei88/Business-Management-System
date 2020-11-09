@@ -225,9 +225,6 @@ namespace Business_Management_System
 
             lifetimePercent = (cht_statistics.Series["Profit (Lifetime)"].Points.Last().YValues[0] - cht_statistics.Series["Profit (Lifetime)"].Points.First().YValues[0]) / cht_statistics.Series["Profit (Lifetime)"].Points.First().YValues[0];
 
-            MessageBox.Show(cht_statistics.Series["Profit (Lifetime)"].Points.Last().YValues[0].ToString());
-            MessageBox.Show(cht_statistics.Series["Profit (Lifetime)"].Points.First().YValues[0].ToString());
-
             if (lifetimePercent > 0)
             {
                 lbl_sales_percent_lifetime.ForeColor = System.Drawing.Color.Green;

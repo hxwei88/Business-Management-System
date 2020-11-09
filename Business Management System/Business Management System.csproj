@@ -364,7 +364,17 @@
     <Compile Include="Sell.Designer.cs">
       <DependentUpon>Sell.cs</DependentUpon>
     </Compile>
+    <Compile Include="Users.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Users.Designer.cs">
+      <DependentUpon>Users.cs</DependentUpon>
+    </Compile>
     <Compile Include="Vendor.cs" />
+    <EmbeddedResource Include="Users.resx">
+      <DependentUpon>Users.cs</DependentUpon>
+    </EmbeddedResource>
+    <None Include="Resources\users_manage.png" />
     <None Include="Resources\user.png" />
     <None Include="ClassDiagram.cd" />
     <None Include="Resources\database.png" />
