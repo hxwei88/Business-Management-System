@@ -112,13 +112,17 @@
             // 
             // btn_logout
             // 
+            this.btn_logout.BackColor = System.Drawing.Color.Gray;
             this.btn_logout.Dock = System.Windows.Forms.DockStyle.Bottom;
+            this.btn_logout.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btn_logout.Font = new System.Drawing.Font("Impact", 16.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btn_logout.ForeColor = System.Drawing.Color.White;
             this.btn_logout.Location = new System.Drawing.Point(0, 300);
             this.btn_logout.Name = "btn_logout";
             this.btn_logout.Size = new System.Drawing.Size(559, 58);
             this.btn_logout.TabIndex = 12;
             this.btn_logout.Text = "LOGOUT";
-            this.btn_logout.UseVisualStyleBackColor = true;
+            this.btn_logout.UseVisualStyleBackColor = false;
             this.btn_logout.Click += new System.EventHandler(this.btn_logout_Click);
             // 
             // lbl_new_password
@@ -143,12 +147,14 @@
             // 
             // btn_password
             // 
+            this.btn_password.BackColor = System.Drawing.Color.White;
+            this.btn_password.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btn_password.Location = new System.Drawing.Point(403, 150);
             this.btn_password.Name = "btn_password";
             this.btn_password.Size = new System.Drawing.Size(75, 23);
             this.btn_password.TabIndex = 9;
             this.btn_password.Text = "Edit";
-            this.btn_password.UseVisualStyleBackColor = true;
+            this.btn_password.UseVisualStyleBackColor = false;
             this.btn_password.Click += new System.EventHandler(this.btn_password_Click);
             // 
             // lbl_auth
@@ -183,12 +189,14 @@
             // 
             // btn_name
             // 
+            this.btn_name.BackColor = System.Drawing.Color.White;
+            this.btn_name.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btn_name.Location = new System.Drawing.Point(403, 108);
             this.btn_name.Name = "btn_name";
             this.btn_name.Size = new System.Drawing.Size(75, 23);
             this.btn_name.TabIndex = 6;
             this.btn_name.Text = "Edit";
-            this.btn_name.UseVisualStyleBackColor = true;
+            this.btn_name.UseVisualStyleBackColor = false;
             this.btn_name.Click += new System.EventHandler(this.btn_name_Click);
             // 
             // lbl_password
