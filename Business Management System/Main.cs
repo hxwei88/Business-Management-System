@@ -12,29 +12,20 @@ namespace Business_Management_System
 {
     public partial class Main : Form
     {
-        string auth_level;
+        User user;
 
-        public Main(string auth)
+        public Main(User u)
         {
             InitializeComponent();
-            auth_level = auth;
+            user = u;
 
             //default page
             uc_storage();
         }
 
-        private void uc_sell()
-        {
-            Sell ctrl_sell = new Sell();
-
-            pnl_main.Controls.Clear();
-            ctrl_sell.Dock = DockStyle.Fill;
-            pnl_main.Controls.Add(ctrl_sell);
-        }
-
         private void uc_storage()
         {
-            Storage ctrl_storage = new Storage(auth_level);
+            Storage ctrl_storage = new Storage(user.auth_level);
 
             pnl_main.Controls.Clear();
             ctrl_storage.Dock = DockStyle.Fill;
@@ -59,19 +50,16 @@ namespace Business_Management_System
             pnl_main.Controls.Add(ctrl_report);
         }
 
-        private void uc_database()
-        {
-            Database ctrl_database = new Database();
-
-            pnl_main.Controls.Clear();
-            ctrl_database.Dock = DockStyle.Fill;
-            pnl_main.Controls.Add(ctrl_database);
-        }
-
         private void btn_login_Click(object sender, EventArgs e)
         {
-            Login login = new Login();
-            login.ShowDialog(this);
+            Account account = new Account(user);
+            account.ShowDialog(this);
+            if(account.logout)
+            {
+                Login login = new Login();
+                this.Hide();
+                login.ShowDialog();
+            }
         }
 
         private void btn_storage_Click(object sender, EventArgs e)
@@ -87,16 +75,6 @@ namespace Business_Management_System
         private void btn_report_Click(object sender, EventArgs e)
         {
             uc_report();
-        }
-
-        private void btn_sell_Click(object sender, EventArgs e)
-        {
-            uc_sell();
-        }
-
-        private void btn_database_Click(object sender, EventArgs e)
-        {
-            uc_database();
         }
     }
 }

@@ -32,9 +32,9 @@
             this.lbl_password = new System.Windows.Forms.Label();
             this.txt_user = new System.Windows.Forms.TextBox();
             this.txt_password = new System.Windows.Forms.TextBox();
-            this.btn_login = new System.Windows.Forms.Button();
             this.link_register = new System.Windows.Forms.LinkLabel();
             this.pnl_main = new System.Windows.Forms.Panel();
+            this.btn_login = new System.Windows.Forms.Button();
             this.pnl_main.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -81,26 +81,6 @@
             this.txt_password.TabIndex = 3;
             this.txt_password.UseSystemPasswordChar = true;
             // 
-            // btn_login
-            // 
-            this.btn_login.BackColor = System.Drawing.Color.Black;
-            this.btn_login.FlatAppearance.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(192)))), ((int)(((byte)(192)))));
-            this.btn_login.FlatAppearance.BorderSize = 0;
-            this.btn_login.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btn_login.Font = new System.Drawing.Font("Impact", 20.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btn_login.ForeColor = System.Drawing.Color.White;
-            this.btn_login.Image = global::Business_Management_System.Properties.Resources.login64px;
-            this.btn_login.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btn_login.Location = new System.Drawing.Point(-1, 285);
-            this.btn_login.Margin = new System.Windows.Forms.Padding(4);
-            this.btn_login.Name = "btn_login";
-            this.btn_login.Padding = new System.Windows.Forms.Padding(100, 0, 0, 0);
-            this.btn_login.Size = new System.Drawing.Size(512, 102);
-            this.btn_login.TabIndex = 6;
-            this.btn_login.Text = "LOGIN";
-            this.btn_login.UseVisualStyleBackColor = false;
-            this.btn_login.Click += new System.EventHandler(this.btn_login_Click);
-            // 
             // link_register
             // 
             this.link_register.ActiveLinkColor = System.Drawing.Color.Yellow;
@@ -131,6 +111,26 @@
             this.pnl_main.Size = new System.Drawing.Size(512, 444);
             this.pnl_main.TabIndex = 8;
             // 
+            // btn_login
+            // 
+            this.btn_login.BackColor = System.Drawing.Color.Black;
+            this.btn_login.FlatAppearance.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(192)))), ((int)(((byte)(192)))));
+            this.btn_login.FlatAppearance.BorderSize = 0;
+            this.btn_login.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btn_login.Font = new System.Drawing.Font("Impact", 20.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btn_login.ForeColor = System.Drawing.Color.White;
+            this.btn_login.Image = global::Business_Management_System.Properties.Resources.login64px;
+            this.btn_login.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.btn_login.Location = new System.Drawing.Point(-1, 285);
+            this.btn_login.Margin = new System.Windows.Forms.Padding(4);
+            this.btn_login.Name = "btn_login";
+            this.btn_login.Padding = new System.Windows.Forms.Padding(100, 0, 0, 0);
+            this.btn_login.Size = new System.Drawing.Size(512, 102);
+            this.btn_login.TabIndex = 6;
+            this.btn_login.Text = "LOGIN";
+            this.btn_login.UseVisualStyleBackColor = false;
+            this.btn_login.Click += new System.EventHandler(this.btn_login_Click);
+            // 
             // Login
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
@@ -140,6 +140,7 @@
             this.Controls.Add(this.pnl_main);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.Margin = new System.Windows.Forms.Padding(4);
+            this.MaximizeBox = false;
             this.Name = "Login";
             this.Text = "Login";
             this.pnl_main.ResumeLayout(false);

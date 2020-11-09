@@ -14,7 +14,6 @@ namespace Business_Management_System
     public partial class Login : Form
     {
         FirestoreDb db;
-        string auth_level;
 
         public Login()
         {
@@ -55,10 +54,10 @@ namespace Business_Management_System
 
                     if (user.password == txt_password.Text)
                     {
-                        auth_level = user.auth_level;
                         this.Hide();
-                        Main menu = new Main(auth_level);
+                        Main menu = new Main(user);
                         menu.ShowDialog(this);
+                        this.Close();
                     }
                     else
                     {

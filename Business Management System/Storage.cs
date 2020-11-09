@@ -38,12 +38,12 @@ namespace Business_Management_System
             if(auth_level == "admin")
             {
                 dataGridView1.ReadOnly = false;
-                btn_save.Enabled = true;
+                btn_save.Show();
             }
             else
             {
                 dataGridView1.ReadOnly = true;
-                btn_save.Enabled = false;
+                btn_save.Hide();
             }
         }
 
@@ -478,21 +478,28 @@ namespace Business_Management_System
                                 Stock stock = snap.Documents[0].ConvertTo<Stock>();
 
                                 DocumentReference docref = coll.Document(id);
-
+                                
                                 Dictionary<string, object> data = new Dictionary<string, object>()
                                 {
                                     {"quantity", stock.quantity + Convert.ToInt32(xlWorkSheet.Cells[xlWorkSheet.Range["Item_Quantity"].Row + i, xlWorkSheet.Range["Item_Desc"].Column].Value2) }
                                 };
 
-                                await docref.SetAsync(data);
+                                await docref.UpdateAsync(data);
                             }
                         }
 
-                        PriceEntryForm form = new PriceEntryForm(add_coll);
+                        if (add_coll.Count > 0)
+                        {
+                            PriceEntryForm form = new PriceEntryForm(add_coll);
 
-                        form.Show();
+                            form.Show();
 
-                        form.FormClosed += new FormClosedEventHandler(Form_Closed);
+                            form.FormClosed += new FormClosedEventHandler(Form_Closed);
+                        }
+                        else
+                        {
+                            refreshDGV();
+                        }
                     }
                 }
                 catch

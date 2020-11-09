@@ -127,7 +127,7 @@
             this.btn_login.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btn_login.Font = new System.Drawing.Font("Impact", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btn_login.ForeColor = System.Drawing.Color.White;
-            this.btn_login.Image = global::Business_Management_System.Properties.Resources.login;
+            this.btn_login.Image = global::Business_Management_System.Properties.Resources.user;
             this.btn_login.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.btn_login.Location = new System.Drawing.Point(0, 703);
             this.btn_login.Margin = new System.Windows.Forms.Padding(4);

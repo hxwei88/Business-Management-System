@@ -285,6 +285,12 @@
     <Reference Include="WindowsBase" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Account.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Account.Designer.cs">
+      <DependentUpon>Account.cs</DependentUpon>
+    </Compile>
     <Compile Include="Audit.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -359,6 +365,7 @@
       <DependentUpon>Sell.cs</DependentUpon>
     </Compile>
     <Compile Include="Vendor.cs" />
+    <None Include="Resources\user.png" />
     <None Include="ClassDiagram.cd" />
     <None Include="Resources\database.png" />
     <None Include="Resources\home.png" />
@@ -371,6 +378,9 @@
     <None Include="Resources\report.png" />
     <None Include="Resources\audit.png" />
     <None Include="Resources\storage.png" />
+    <EmbeddedResource Include="Account.resx">
+      <DependentUpon>Account.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Audit.resx">
       <DependentUpon>Audit.cs</DependentUpon>
     </EmbeddedResource>
