@@ -60,12 +60,15 @@
             // 
             // btn_create
             // 
-            this.btn_create.Location = new System.Drawing.Point(50, 196);
+            this.btn_create.BackColor = System.Drawing.Color.Gray;
+            this.btn_create.Font = new System.Drawing.Font("Impact", 16.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btn_create.ForeColor = System.Drawing.Color.White;
+            this.btn_create.Location = new System.Drawing.Point(50, 195);
             this.btn_create.Name = "btn_create";
-            this.btn_create.Size = new System.Drawing.Size(311, 55);
+            this.btn_create.Size = new System.Drawing.Size(311, 79);
             this.btn_create.TabIndex = 7;
             this.btn_create.Text = "Create";
-            this.btn_create.UseVisualStyleBackColor = true;
+            this.btn_create.UseVisualStyleBackColor = false;
             this.btn_create.Click += new System.EventHandler(this.btn_create_Click);
             // 
             // gb_account
@@ -98,7 +101,7 @@
             "common"});
             this.cb_auth.Location = new System.Drawing.Point(122, 129);
             this.cb_auth.Name = "cb_auth";
-            this.cb_auth.Size = new System.Drawing.Size(121, 24);
+            this.cb_auth.Size = new System.Drawing.Size(239, 24);
             this.cb_auth.TabIndex = 9;
             // 
             // lbl_auth
