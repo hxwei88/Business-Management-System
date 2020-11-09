@@ -12,9 +12,12 @@ namespace Business_Management_System
 {
     public partial class Main : Form
     {
-        public Main()
+        string auth_level;
+
+        public Main(string auth)
         {
             InitializeComponent();
+            auth_level = auth;
 
             //default page
             uc_storage();
@@ -31,7 +34,7 @@ namespace Business_Management_System
 
         private void uc_storage()
         {
-            Storage ctrl_storage = new Storage();
+            Storage ctrl_storage = new Storage(auth_level);
 
             pnl_main.Controls.Clear();
             ctrl_storage.Dock = DockStyle.Fill;

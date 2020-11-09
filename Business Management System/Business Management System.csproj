@@ -301,6 +301,7 @@
     <Compile Include="ExTreeView.cs">
       <SubType>Component</SubType>
     </Compile>
+    <Compile Include="User.cs" />
     <Compile Include="PriceEntryForm.cs">
       <SubType>Form</SubType>
     </Compile>

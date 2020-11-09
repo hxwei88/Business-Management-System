@@ -189,7 +189,7 @@
             this.lbl_yr.Name = "lbl_yr";
             this.lbl_yr.Size = new System.Drawing.Size(156, 52);
             this.lbl_yr.TabIndex = 2;
-            this.lbl_yr.Text = "Year:";
+            this.lbl_yr.Text = "YEAR:";
             this.lbl_yr.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // cb_month
@@ -228,7 +228,7 @@
             this.lbl_month.Name = "lbl_month";
             this.lbl_month.Size = new System.Drawing.Size(156, 52);
             this.lbl_month.TabIndex = 3;
-            this.lbl_month.Text = "Month:";
+            this.lbl_month.Text = "MONTH:";
             this.lbl_month.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // Audit

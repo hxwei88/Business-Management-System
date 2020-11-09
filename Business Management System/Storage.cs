@@ -26,12 +26,25 @@ namespace Business_Management_System
         private ArrayList edit_coll_id = new ArrayList();
         private List<Stock> add_coll = new List<Stock>();
         private Load ctrl_load = new Load();
+        private string auth_level;
 
-        public Storage()
+        public Storage(string auth)
         {
             InitializeComponent();
+            auth_level = auth;
             uc_srchbar();
             connectDb();
+
+            if(auth_level == "admin")
+            {
+                dataGridView1.ReadOnly = false;
+                btn_save.Enabled = true;
+            }
+            else
+            {
+                dataGridView1.ReadOnly = true;
+                btn_save.Enabled = false;
+            }
         }
 
         private void connectDb()

@@ -28,10 +28,10 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea1 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
-            System.Windows.Forms.DataVisualization.Charting.Legend legend1 = new System.Windows.Forms.DataVisualization.Charting.Legend();
-            System.Windows.Forms.DataVisualization.Charting.Series series1 = new System.Windows.Forms.DataVisualization.Charting.Series();
-            System.Windows.Forms.DataVisualization.Charting.Series series2 = new System.Windows.Forms.DataVisualization.Charting.Series();
+            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea2 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
+            System.Windows.Forms.DataVisualization.Charting.Legend legend2 = new System.Windows.Forms.DataVisualization.Charting.Legend();
+            System.Windows.Forms.DataVisualization.Charting.Series series3 = new System.Windows.Forms.DataVisualization.Charting.Series();
+            System.Windows.Forms.DataVisualization.Charting.Series series4 = new System.Windows.Forms.DataVisualization.Charting.Series();
             this.pnl_header = new System.Windows.Forms.Panel();
             this.cb_month_mth = new System.Windows.Forms.ComboBox();
             this.label2 = new System.Windows.Forms.Label();
@@ -79,7 +79,7 @@
             this.cb_month_mth.Enabled = false;
             this.cb_month_mth.Font = new System.Drawing.Font("Microsoft Sans Serif", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.cb_month_mth.FormattingEnabled = true;
-            this.cb_month_mth.Location = new System.Drawing.Point(715, 10);
+            this.cb_month_mth.Location = new System.Drawing.Point(725, 10);
             this.cb_month_mth.Margin = new System.Windows.Forms.Padding(4);
             this.cb_month_mth.Name = "cb_month_mth";
             this.cb_month_mth.Size = new System.Drawing.Size(160, 44);
@@ -91,13 +91,13 @@
             this.label2.AutoSize = true;
             this.label2.Dock = System.Windows.Forms.DockStyle.Left;
             this.label2.Font = new System.Drawing.Font("Impact", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label2.Location = new System.Drawing.Point(604, 10);
+            this.label2.Location = new System.Drawing.Point(607, 10);
             this.label2.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label2.Name = "label2";
             this.label2.Padding = new System.Windows.Forms.Padding(10, 0, 0, 0);
-            this.label2.Size = new System.Drawing.Size(111, 37);
+            this.label2.Size = new System.Drawing.Size(118, 37);
             this.label2.TabIndex = 5;
-            this.label2.Text = "Month:";
+            this.label2.Text = "MONTH:";
             // 
             // cb_month_yr
             // 
@@ -106,7 +106,7 @@
             this.cb_month_yr.Enabled = false;
             this.cb_month_yr.Font = new System.Drawing.Font("Microsoft Sans Serif", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.cb_month_yr.FormattingEnabled = true;
-            this.cb_month_yr.Location = new System.Drawing.Point(444, 10);
+            this.cb_month_yr.Location = new System.Drawing.Point(447, 10);
             this.cb_month_yr.Margin = new System.Windows.Forms.Padding(4);
             this.cb_month_yr.Name = "cb_month_yr";
             this.cb_month_yr.Size = new System.Drawing.Size(160, 44);
@@ -122,9 +122,9 @@
             this.label1.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label1.Name = "label1";
             this.label1.Padding = new System.Windows.Forms.Padding(10, 0, 0, 0);
-            this.label1.Size = new System.Drawing.Size(87, 37);
+            this.label1.Size = new System.Drawing.Size(90, 37);
             this.label1.TabIndex = 4;
-            this.label1.Text = "Year:";
+            this.label1.Text = "YEAR:";
             // 
             // btn_run
             // 
@@ -182,28 +182,28 @@
             // 
             // cht_statistics
             // 
-            chartArea1.Name = "ChartArea1";
-            this.cht_statistics.ChartAreas.Add(chartArea1);
+            chartArea2.Name = "ChartArea1";
+            this.cht_statistics.ChartAreas.Add(chartArea2);
             this.cht_statistics.Dock = System.Windows.Forms.DockStyle.Fill;
-            legend1.Font = new System.Drawing.Font("Impact", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            legend1.IsTextAutoFit = false;
-            legend1.Name = "Legend1";
-            this.cht_statistics.Legends.Add(legend1);
+            legend2.Font = new System.Drawing.Font("Impact", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            legend2.IsTextAutoFit = false;
+            legend2.Name = "Legend1";
+            this.cht_statistics.Legends.Add(legend2);
             this.cht_statistics.Location = new System.Drawing.Point(0, 63);
             this.cht_statistics.Margin = new System.Windows.Forms.Padding(4);
             this.cht_statistics.Name = "cht_statistics";
-            series1.ChartArea = "ChartArea1";
-            series1.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Spline;
-            series1.Legend = "Legend1";
-            series1.MarkerStyle = System.Windows.Forms.DataVisualization.Charting.MarkerStyle.Circle;
-            series1.Name = "Profit (Daily)";
-            series2.ChartArea = "ChartArea1";
-            series2.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Spline;
-            series2.Legend = "Legend1";
-            series2.MarkerStyle = System.Windows.Forms.DataVisualization.Charting.MarkerStyle.Circle;
-            series2.Name = "Profit (Lifetime)";
-            this.cht_statistics.Series.Add(series1);
-            this.cht_statistics.Series.Add(series2);
+            series3.ChartArea = "ChartArea1";
+            series3.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Spline;
+            series3.Legend = "Legend1";
+            series3.MarkerStyle = System.Windows.Forms.DataVisualization.Charting.MarkerStyle.Circle;
+            series3.Name = "Profit (Daily)";
+            series4.ChartArea = "ChartArea1";
+            series4.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Spline;
+            series4.Legend = "Legend1";
+            series4.MarkerStyle = System.Windows.Forms.DataVisualization.Charting.MarkerStyle.Circle;
+            series4.Name = "Profit (Lifetime)";
+            this.cht_statistics.Series.Add(series3);
+            this.cht_statistics.Series.Add(series4);
             this.cht_statistics.Size = new System.Drawing.Size(1028, 658);
             this.cht_statistics.TabIndex = 0;
             this.cht_statistics.Text = "chart1";

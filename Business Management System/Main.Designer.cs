@@ -135,7 +135,7 @@
             this.btn_login.Padding = new System.Windows.Forms.Padding(33, 0, 0, 0);
             this.btn_login.Size = new System.Drawing.Size(267, 48);
             this.btn_login.TabIndex = 4;
-            this.btn_login.Text = "LOGIN";
+            this.btn_login.Text = "ACCOUNT";
             this.btn_login.UseVisualStyleBackColor = false;
             this.btn_login.Click += new System.EventHandler(this.btn_login_Click);
             // 
