@@ -166,5 +166,13 @@ namespace Business_Management_System
             txt_user.Enabled = true;
             btn_confirm.Enabled = true;
         }
+
+        public Login Login
+        {
+            get => default;
+            set
+            {
+            }
+        }
     }
 }

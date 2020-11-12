@@ -164,5 +164,13 @@ namespace Business_Management_System
                     return true;
                 };
         }
+
+        public User User
+        {
+            get => default;
+            set
+            {
+            }
+        }
     }
 }

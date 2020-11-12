@@ -1,0 +1,294 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1" MembersFormat="NameAndType">
+  <Class Name="Business_Management_System.Vendor">
+    <Position X="12" Y="0.5" Width="2" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAgAAAAAAAAAAAAAABAAAAAA=</HashCode>
+      <FileName>Vendor.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Business_Management_System.Users">
+    <Position X="7.25" Y="27.75" Width="2.25" />
+    <Members>
+      <Field Name="btn_create" Hidden="true" />
+      <Field Name="cb_auth" Hidden="true" />
+      <Field Name="components" Hidden="true" />
+      <Method Name="Dispose" Hidden="true" />
+      <Field Name="gb_account" Hidden="true" />
+      <Method Name="InitializeComponent" Hidden="true" />
+      <Field Name="lbl_auth" Hidden="true" />
+      <Field Name="lbl_email" Hidden="true" />
+      <Field Name="pnl_main" Hidden="true" />
+      <Field Name="tb_email" Hidden="true" />
+    </Members>
+    <TypeIdentifier>
+      <HashCode>AAgBABAAACAwQAgAABCQAAACAAAAAAAAAARABAABiEE=</HashCode>
+      <FileName>Users.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Property Name="User" />
+    </ShowAsAssociation>
+  </Class>
+  <Class Name="Business_Management_System.User">
+    <Position X="12" Y="26.75" Width="1.75" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAgAAAAAAAgBAAAAAEAAAAAAAAAAAAAAgAAAAA=</HashCode>
+      <FileName>User.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Business_Management_System.Storage">
+    <Position X="7.25" Y="8" Width="3" />
+    <Members>
+      <Field Name="btn_save" Hidden="true" />
+      <Field Name="btn_upload" Hidden="true" />
+      <Field Name="components" Hidden="true" />
+      <Field Name="dataGridView1" Hidden="true" />
+      <Method Name="Dispose" Hidden="true" />
+      <Field Name="flowLayoutPanel1" Hidden="true" />
+      <Field Name="id" Hidden="true" />
+      <Method Name="InitializeComponent" Hidden="true" />
+      <Field Name="item_id" Hidden="true" />
+      <Field Name="item_name" Hidden="true" />
+      <Field Name="pnl_content" Hidden="true" />
+      <Field Name="quantity" Hidden="true" />
+      <Field Name="unit_price" Hidden="true" />
+      <Field Name="vendor_id" Hidden="true" />
+      <Field Name="wholesale_price" Hidden="true" />
+    </Members>
+    <TypeIdentifier>
+      <HashCode>EAAMIAAKBCgQEQAChUCCAECClLoAABKkIigUBAAACgA=</HashCode>
+      <FileName>Storage.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Property Name="PriceEntryForm" />
+      <Property Name="Stock" />
+    </ShowAsAssociation>
+  </Class>
+  <Class Name="Business_Management_System.Stock">
+    <Position X="12" Y="14.75" Width="2.25" />
+    <TypeIdentifier>
+      <HashCode>EAAAAAAAAAAAAAAAAAAAAAAAABAAAAKAAAgABAAAAAA=</HashCode>
+      <FileName>Stock.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Business_Management_System.Sales">
+    <Position X="12" Y="17.25" Width="2" />
+    <TypeIdentifier>
+      <HashCode>AQAAAAAAAAAAAAAAAAAAAAIAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Sales.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Business_Management_System.Report">
+    <Position X="7.25" Y="16" Width="3.25" />
+    <Members>
+      <Field Name="btn_run" Hidden="true" />
+      <Field Name="cb_hide_daily" Hidden="true" />
+      <Field Name="cb_hide_lifetime" Hidden="true" />
+      <Field Name="cb_month_mth" Hidden="true" />
+      <Field Name="cb_month_yr" Hidden="true" />
+      <Field Name="cb_range" Hidden="true" />
+      <Field Name="cb_sales_num" Hidden="true" />
+      <Field Name="cht_statistics" Hidden="true" />
+      <Field Name="components" Hidden="true" />
+      <Method Name="Dispose" Hidden="true" />
+      <Method Name="InitializeComponent" Hidden="true" />
+      <Field Name="label1" Hidden="true" />
+      <Field Name="label2" Hidden="true" />
+      <Field Name="lbl_sales_percent_lifetime" Hidden="true" />
+      <Field Name="lbl_sales_status_monthly" Hidden="true" />
+      <Field Name="lbl_sales_title_lifetime" Hidden="true" />
+      <Field Name="pnl_content" Hidden="true" />
+      <Field Name="pnl_header" Hidden="true" />
+      <Field Name="pnl_main" Hidden="true" />
+      <Field Name="pnl_option" Hidden="true" />
+    </Members>
+    <TypeIdentifier>
+      <HashCode>AIlMAQAIAGAxANAAWACGhQJCggCEAggIRAAkAgAKDkk=</HashCode>
+      <FileName>Report.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Property Name="Sales" />
+      <Property Name="Order" />
+      <Property Name="Stock" />
+    </ShowAsAssociation>
+  </Class>
+  <Class Name="Business_Management_System.PriceEntryForm">
+    <Position X="12" Y="8.75" Width="2.25" />
+    <Members>
+      <Field Name="btn_cfm" Hidden="true" />
+      <Field Name="components" Hidden="true" />
+      <Field Name="dataGridView1" Hidden="true" />
+      <Method Name="Dispose" Hidden="true" />
+      <Method Name="InitializeComponent" Hidden="true" />
+      <Field Name="item_name" Hidden="true" />
+      <Field Name="item_price" Hidden="true" />
+    </Members>
+    <TypeIdentifier>
+      <HashCode>AAAAAACAACCAAAAAAACBAAACAAgAAAIAAAAAAEAAAAA=</HashCode>
+      <FileName>PriceEntryForm.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Business_Management_System.Order_Items">
+    <Position X="15.5" Y="19" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAACAAAgAAAAAAAA=</HashCode>
+      <FileName>Order_Items.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Business_Management_System.Order">
+    <Position X="12" Y="19" Width="2.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAEAggAAQAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Order.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Business_Management_System.Main">
+    <Position X="4" Y="2.75" Width="2" />
+    <Members>
+      <Field Name="btn_audit" Hidden="true" />
+      <Field Name="btn_login" Hidden="true" />
+      <Field Name="btn_report" Hidden="true" />
+      <Field Name="btn_storage" Hidden="true" />
+      <Field Name="btn_users" Hidden="true" />
+      <Field Name="components" Hidden="true" />
+      <Method Name="Dispose" Hidden="true" />
+      <Method Name="InitializeComponent" Hidden="true" />
+      <Field Name="lbl_brand" Hidden="true" />
+      <Field Name="pnl_main" Hidden="true" />
+      <Field Name="pnl_navi" Hidden="true" />
+      <Field Name="pnl_title" Hidden="true" />
+    </Members>
+    <TypeIdentifier>
+      <HashCode>gAgAQigMAKEAAAADAECAAAgCAAAAAAgAAAAIAiAAJ0A=</HashCode>
+      <FileName>Main.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Property Name="Account" />
+      <Property Name="Audit" />
+      <Property Name="Storage" />
+      <Property Name="Report" />
+      <Property Name="Users" />
+    </ShowAsAssociation>
+  </Class>
+  <Class Name="Business_Management_System.Login">
+    <Position X="0.5" Y="1.25" Width="2.5" />
+    <Members>
+      <Field Name="btn_login" Hidden="true" />
+      <Field Name="components" Hidden="true" />
+      <Method Name="Dispose" Hidden="true" />
+      <Method Name="InitializeComponent" Hidden="true" />
+      <Field Name="lbl_password" Hidden="true" />
+      <Field Name="lbl_user" Hidden="true" />
+      <Field Name="link_forget" Hidden="true" />
+      <Field Name="pnl_main" Hidden="true" />
+      <Field Name="txt_password" Hidden="true" />
+      <Field Name="txt_user" Hidden="true" />
+    </Members>
+    <TypeIdentifier>
+      <HashCode>AAgEAQAAACQQAAAAAACAAAACAAAAAAIAIAAIBAAACAA=</HashCode>
+      <FileName>Login.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Property Name="Main" />
+      <Property Name="ForgetPassword" />
+    </ShowAsAssociation>
+  </Class>
+  <Class Name="Business_Management_System.Invoice_Items">
+    <Position X="15.75" Y="2.25" Width="2.25" />
+    <TypeIdentifier>
+      <HashCode>EAAAAAAAAAAAAAAAAAAAAAAAAAAAAAKAAAgAAAAAAAA=</HashCode>
+      <FileName>Invoice_Items.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Business_Management_System.Invoice">
+    <Position X="12" Y="2.25" Width="2.75" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAgAAAAAABAAAAAAAAAAAAAAAAAAAAAABgAACAA=</HashCode>
+      <FileName>Invoice.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Business_Management_System.ForgetPassword">
+    <Position X="0.5" Y="4.5" Width="2.25" />
+    <Members>
+      <Field Name="btn_confirm" Hidden="true" />
+      <Field Name="components" Hidden="true" />
+      <Method Name="Dispose" Hidden="true" />
+      <Method Name="InitializeComponent" Hidden="true" />
+      <Field Name="lbl_email" Hidden="true" />
+      <Field Name="lbl_info" Hidden="true" />
+      <Field Name="lbl_user" Hidden="true" />
+      <Field Name="pnl_main" Hidden="true" />
+      <Field Name="txt_email" Hidden="true" />
+      <Field Name="txt_user" Hidden="true" />
+    </Members>
+    <TypeIdentifier>
+      <HashCode>AAgEABCIAKQSQAAAABCAAAACAAIQAAAAAARYAAAACEA=</HashCode>
+      <FileName>ForgetPassword.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Property Name="Login" />
+    </ShowAsAssociation>
+  </Class>
+  <Class Name="Business_Management_System.Audit">
+    <Position X="7.25" Y="0.5" Width="2.75" />
+    <Members>
+      <Field Name="btn_choosenMonth" Hidden="true" />
+      <Field Name="btn_prevMonth" Hidden="true" />
+      <Field Name="cb_month" Hidden="true" />
+      <Field Name="cb_yr" Hidden="true" />
+      <Field Name="ckb_vendor" Hidden="true" />
+      <Field Name="components" Hidden="true" />
+      <Method Name="Dispose" Hidden="true" />
+      <Field Name="flp_button" Hidden="true" />
+      <Field Name="flp_option" Hidden="true" />
+      <Method Name="InitializeComponent" Hidden="true" />
+      <Field Name="lbl_month" Hidden="true" />
+      <Field Name="lbl_yr" Hidden="true" />
+      <Field Name="pnl_ckbox" Hidden="true" />
+      <Field Name="pnl_invoices" Hidden="true" />
+      <Field Name="pnl_main" Hidden="true" />
+      <Field Name="tlp_combobox" Hidden="true" />
+      <Field Name="tv_invoices" Hidden="true" />
+    </Members>
+    <TypeIdentifier>
+      <HashCode>AAkGIAAABCAREEAAAUOCpLACIgECCABQAgAgKEAiCRA=</HashCode>
+      <FileName>Audit.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Property Name="Invoice" />
+      <Property Name="Vendor" />
+    </ShowAsAssociation>
+  </Class>
+  <Class Name="Business_Management_System.Account">
+    <Position X="7.25" Y="23.75" Width="2.25" />
+    <Members>
+      <Field Name="btn_logout" Hidden="true" />
+      <Field Name="btn_name" Hidden="true" />
+      <Field Name="btn_password" Hidden="true" />
+      <Field Name="components" Hidden="true" />
+      <Method Name="Dispose" Hidden="true" />
+      <Method Name="InitializeComponent" Hidden="true" />
+      <Field Name="lbl_auth" Hidden="true" />
+      <Field Name="lbl_auth_title" Hidden="true" />
+      <Field Name="lbl_confirm_password" Hidden="true" />
+      <Field Name="lbl_id" Hidden="true" />
+      <Field Name="lbl_id_title" Hidden="true" />
+      <Field Name="lbl_name" Hidden="true" />
+      <Field Name="lbl_new_password" Hidden="true" />
+      <Field Name="lbl_password" Hidden="true" />
+      <Field Name="pnl_main" Hidden="true" />
+      <Field Name="tb_confirm_password" Hidden="true" />
+      <Field Name="tb_name" Hidden="true" />
+      <Field Name="tb_new_password" Hidden="true" />
+      <Field Name="tb_password" Hidden="true" />
+    </Members>
+    <TypeIdentifier>
+      <HashCode>EAglASACBKBSAIAEMACAAAACAAACAAAAAAEgGAEBGQA=</HashCode>
+      <FileName>Account.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Property Name="User" />
+    </ShowAsAssociation>
+  </Class>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>

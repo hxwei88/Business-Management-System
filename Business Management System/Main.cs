@@ -28,6 +28,46 @@ namespace Business_Management_System
             }
         }
 
+        public Account Account
+        {
+            get => default;
+            set
+            {
+            }
+        }
+
+        public Audit Audit
+        {
+            get => default;
+            set
+            {
+            }
+        }
+
+        public Storage Storage
+        {
+            get => default;
+            set
+            {
+            }
+        }
+
+        public Report Report
+        {
+            get => default;
+            set
+            {
+            }
+        }
+
+        public Users Users
+        {
+            get => default;
+            set
+            {
+            }
+        }
+
         private void uc_storage()
         {
             Storage ctrl_storage = new Storage(user.auth_level);

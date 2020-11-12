@@ -27,6 +27,14 @@ namespace Business_Management_System
             tb_name.Text = user.username;
         }
 
+        public User User
+        {
+            get => default;
+            set
+            {
+            }
+        }
+
         private void connectDb()
         {
             string path = AppDomain.CurrentDomain.BaseDirectory + @"ekia.json";

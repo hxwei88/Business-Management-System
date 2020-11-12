@@ -21,6 +21,22 @@ namespace Business_Management_System
             connectDb();
         }
 
+        public Main Main
+        {
+            get => default;
+            set
+            {
+            }
+        }
+
+        public ForgetPassword ForgetPassword
+        {
+            get => default;
+            set
+            {
+            }
+        }
+
         private void connectDb()
         {
             string path = AppDomain.CurrentDomain.BaseDirectory + @"ekia.json";

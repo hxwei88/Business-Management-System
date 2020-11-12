@@ -9,7 +9,7 @@ namespace Business_Management_System
 {
     [FirestoreData]
 
-    public class Order_Items
+    public class Order_Items : Order
     {
         [FirestoreProperty]
         public string item_id { get; set; }

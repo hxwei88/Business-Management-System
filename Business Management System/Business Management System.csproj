@@ -307,6 +307,7 @@
     <Compile Include="ForgetPassword.Designer.cs">
       <DependentUpon>ForgetPassword.cs</DependentUpon>
     </Compile>
+    <Compile Include="Interface1.cs" />
     <Compile Include="User.cs" />
     <Compile Include="PriceEntryForm.cs">
       <SubType>Form</SubType>
@@ -316,12 +317,6 @@
     </Compile>
     <Compile Include="Invoice.cs" />
     <Compile Include="Invoice_Items.cs" />
-    <Compile Include="Load.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
-    <Compile Include="Load.Designer.cs">
-      <DependentUpon>Load.cs</DependentUpon>
-    </Compile>
     <Compile Include="Order.cs" />
     <Compile Include="Order_Items.cs" />
     <Compile Include="Report.cs">
@@ -371,9 +366,9 @@
     <EmbeddedResource Include="Users.resx">
       <DependentUpon>Users.cs</DependentUpon>
     </EmbeddedResource>
+    <None Include="ClassDiagram1.cd" />
     <None Include="Resources\users_manage.png" />
     <None Include="Resources\user.png" />
-    <None Include="ClassDiagram.cd" />
     <None Include="Resources\database.png" />
     <None Include="Resources\home.png" />
     <None Include="Resources\stock.png" />
@@ -393,9 +388,6 @@
     </EmbeddedResource>
     <EmbeddedResource Include="PriceEntryForm.resx">
       <DependentUpon>PriceEntryForm.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Load.resx">
-      <DependentUpon>Load.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Report.resx">
       <DependentUpon>Report.cs</DependentUpon>

@@ -9,7 +9,7 @@ namespace Business_Management_System
 {
     [FirestoreData]
 
-    public class Invoice_Items
+    public class Invoice_Items : Invoice
     {
         [FirestoreProperty]
         public int quantity { get; set; }

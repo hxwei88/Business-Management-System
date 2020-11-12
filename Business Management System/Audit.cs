@@ -34,6 +34,22 @@ namespace Business_Management_System
             InitializeComponent();
         }
 
+        public Invoice Invoice
+        {
+            get => default;
+            set
+            {
+            }
+        }
+
+        public Vendor Vendor
+        {
+            get => default;
+            set
+            {
+            }
+        }
+
         private void Audit_Load(object sender, EventArgs e)
         {
             invoice_all = new List<Invoice>();

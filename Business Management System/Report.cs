@@ -32,6 +32,30 @@ namespace Business_Management_System
             InitializeComponent();
         }
 
+        public Sales Sales
+        {
+            get => default;
+            set
+            {
+            }
+        }
+
+        public Order Order
+        {
+            get => default;
+            set
+            {
+            }
+        }
+
+        public Stock Stock
+        {
+            get => default;
+            set
+            {
+            }
+        }
+
         private void Report_Load(object sender, EventArgs e)
         {
             order_all = new List<Order>();

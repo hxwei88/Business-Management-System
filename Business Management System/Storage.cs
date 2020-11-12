@@ -25,7 +25,6 @@ namespace Business_Management_System
         private ArrayList del_coll_id = new ArrayList();
         private ArrayList edit_coll_id = new ArrayList();
         private List<Stock> add_coll = new List<Stock>();
-        private Load ctrl_load = new Load();
         private string auth_level;
 
         public Storage(string auth)
@@ -582,6 +581,22 @@ namespace Business_Management_System
             finally
             {
                 GC.Collect();
+            }
+        }
+
+        public PriceEntryForm PriceEntryForm
+        {
+            get => default;
+            set
+            {
+            }
+        }
+
+        public Stock Stock
+        {
+            get => default;
+            set
+            {
             }
         }
     }
