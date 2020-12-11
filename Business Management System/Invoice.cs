@@ -12,13 +12,13 @@ namespace Business_Management_System
     public class Invoice
     {
         [FirestoreProperty]
-        public string invoice_id { get; set; }
+        public int invoice_id { get; set; }
 
         [FirestoreProperty]
         public string invoice_num { get; set; }
 
         [FirestoreProperty]
-        public string vendor_id { get; set; }
+        public int vendor_id { get; set; }
 
         [FirestoreProperty]
         public DateTime invoice_date { get; set; }

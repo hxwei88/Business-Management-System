@@ -34,9 +34,9 @@ namespace Business_Management_System
         {
             foreach (DataGridViewRow row in dataGridView1.Rows)
             {
-                if(row.Cells["item_price"].Value.ToString() == "")
+                if(Convert.ToString(row.Cells["item_price"].Value) == "")
                 {
-                    MessageBox.Show("show your ass");
+                    MessageBox.Show("Please complete every item price!");
                     return;
                 }
             }

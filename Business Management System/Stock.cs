@@ -12,13 +12,13 @@ namespace Business_Management_System
     public class Stock
     {
         [FirestoreProperty]
-        public string item_id { get; set; }
+        public int item_id { get; set; }
 
         [FirestoreProperty]
         public string item_name { get; set; }
 
         [FirestoreProperty]
-        public string vendor_id { get; set; }
+        public int vendor_id { get; set; }
 
         [FirestoreProperty]
         public double unit_price { get; set; }

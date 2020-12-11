@@ -26,6 +26,8 @@ namespace Business_Management_System
         private bool exe;
         private System.DateTime oldestDate;
         private System.DateTime newestDate;
+        private CollectionReference salesColl;
+        private CollectionReference orderColl;
 
         public Report()
         {
@@ -69,6 +71,8 @@ namespace Business_Management_System
             string path = AppDomain.CurrentDomain.BaseDirectory + @"ekia.json";
             Environment.SetEnvironmentVariable("GOOGLE_APPLICATION_CREDENTIALS", path);
             db = FirestoreDb.Create("ekia-da749");
+            salesColl = db.Collection("sales");
+            orderColl = db.Collection("order");
         }
 
         private async void retrieveStock()
@@ -86,7 +90,14 @@ namespace Business_Management_System
                 }
             }
 
-            await updateSales(newestDate.Year, newestDate.Month);
+            Query salesque = salesColl.OrderByDescending("sales_date").Limit(1);
+            QuerySnapshot salessnap = await salesque.GetSnapshotAsync();
+            Sales sales = salessnap.Documents[0].ConvertTo<Sales>();
+
+            if(sales.sales_date.Month != System.DateTime.Now.AddMonths(-1).Month)
+                await updateSales(newestDate.Year, newestDate.Month);
+
+            finishLoad();
         }
 
         private async Task<bool> retrieveOrder(System.DateTime from, System.DateTime to)
@@ -95,9 +106,7 @@ namespace Business_Management_System
             System.DateTime startDate = from;
             System.DateTime endDate = to;
 
-            CollectionReference coll = db.Collection("order");
-
-            Query stockque = coll.WhereGreaterThanOrEqualTo("order_date", startDate).WhereLessThanOrEqualTo("order_date", endDate); ;
+            Query stockque = orderColl.WhereGreaterThanOrEqualTo("order_date", startDate).WhereLessThanOrEqualTo("order_date", endDate); ;
             QuerySnapshot snap = await stockque.GetSnapshotAsync();
 
             QuerySnapshot item_snap;
@@ -108,7 +117,7 @@ namespace Business_Management_System
 
                 if (docsnap.Exists)
                 {
-                    item_snap = await coll.Document(docsnap.Id).Collection("order_items").GetSnapshotAsync();
+                    item_snap = await orderColl.Document(docsnap.Id).Collection("order_items").GetSnapshotAsync();
 
                     order.order_items = new List<Order_Items>();
 
@@ -193,7 +202,6 @@ namespace Business_Management_System
             }
 
             retrieveStock();
-            finishLoad();
 
             pnl_option.Hide();
         }
@@ -247,7 +255,7 @@ namespace Business_Management_System
                 cht_statistics.Series["Profit (Lifetime)"].Points.AddXY(date.Day, lifetimeprofit);
             }
 
-            lifetimePercent = (cht_statistics.Series["Profit (Lifetime)"].Points.Last().YValues[0] - cht_statistics.Series["Profit (Lifetime)"].Points.First().YValues[0]) / cht_statistics.Series["Profit (Lifetime)"].Points.First().YValues[0];
+            lifetimePercent = (cht_statistics.Series["Profit (Lifetime)"].Points.Last().YValues[0] - cht_statistics.Series["Profit (Lifetime)"].Points.First().YValues[0]) / Math.Abs(cht_statistics.Series["Profit (Lifetime)"].Points.First().YValues[0]);
 
             if (lifetimePercent > 0)
             {
@@ -258,7 +266,7 @@ namespace Business_Management_System
             if (lifetimePercent < 0)
             {
                 lbl_sales_percent_lifetime.ForeColor = System.Drawing.Color.Red;
-                lbl_sales_percent_lifetime.Text = "-";
+                lbl_sales_percent_lifetime.Text = "";
             }
 
             lbl_sales_percent_lifetime.Text += Math.Round((lifetimePercent * 100), 0).ToString() + "%";
@@ -295,7 +303,7 @@ namespace Business_Management_System
                 }
             }
 
-            lifetimePercent = (cht_statistics.Series["Profit (Lifetime)"].Points.Last().YValues[0] - cht_statistics.Series["Profit (Lifetime)"].Points.First().YValues[0]) / cht_statistics.Series["Profit (Lifetime)"].Points.First().YValues[0];
+            lifetimePercent = (cht_statistics.Series["Profit (Lifetime)"].Points.Last().YValues[0] - cht_statistics.Series["Profit (Lifetime)"].Points.First().YValues[0]) / Math.Abs(cht_statistics.Series["Profit (Lifetime)"].Points.First().YValues[0]);
 
             if (lifetimePercent > 0)
             {
@@ -306,19 +314,22 @@ namespace Business_Management_System
             if (lifetimePercent < 0)
             {
                 lbl_sales_percent_lifetime.ForeColor = System.Drawing.Color.Red;
-                lbl_sales_percent_lifetime.Text = "-";
+                lbl_sales_percent_lifetime.Text = "";
             }
 
-            lbl_sales_percent_lifetime.Text += Math.Round(lifetimePercent, 0).ToString();
+            lbl_sales_percent_lifetime.Text += Math.Round((lifetimePercent * 100), 0).ToString() + "%";
 
             finishLoad();
         }
 
+        int count = 0;
+
+        //recurse from newest monnth
         private async Task<double> updateSales(int year, int month)
         {
             System.DateTime date = new System.DateTime(year, month, 1, 0, 0, 0, DateTimeKind.Utc);
 
-            Query stockque = db.Collection("sales").WhereEqualTo("sales_date", date);
+            Query stockque = salesColl.WhereEqualTo("sales_date", date);
 
             QuerySnapshot snap = await stockque.GetSnapshotAsync();
 
@@ -374,8 +385,6 @@ namespace Business_Management_System
                 profit -= dailycost;
             }
 
-            CollectionReference coll = db.Collection("sales");
-
             Dictionary<string, object> data = new Dictionary<string, object>()
             {
                 {"sales_date", date},
@@ -384,13 +393,13 @@ namespace Business_Management_System
 
             if (snap.Documents.Count <= 0)
             {
-                await coll.AddAsync(data);
+                await salesColl.AddAsync(data);
 
                 order_all.Clear();
             }
             else
             {
-                DocumentReference docref = coll.Document(snap.Documents[0].Id);
+                DocumentReference docref = salesColl.Document(snap.Documents[0].Id);
 
                 await docref.SetAsync(data);
             }

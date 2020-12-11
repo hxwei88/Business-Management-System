@@ -15,7 +15,7 @@ namespace Business_Management_System
         public int quantity { get; set; }
 
         [FirestoreProperty]
-        public string item_id { get; set; }
+        public int item_id { get; set; }
 
         [FirestoreProperty]
         public string item_name { get; set; }

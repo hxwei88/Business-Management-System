@@ -12,7 +12,7 @@ namespace Business_Management_System
     public class Vendor
     {
         [FirestoreProperty]
-        public string vendor_id { get; set; }
+        public int vendor_id { get; set; }
 
         [FirestoreProperty]
         public string vendor_name { get; set; }

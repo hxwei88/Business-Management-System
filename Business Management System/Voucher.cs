@@ -9,15 +9,9 @@ namespace Business_Management_System
 {
     [FirestoreData]
 
-    public class Order_Items : Order
+    public class Voucher
     {
         [FirestoreProperty]
-        public int item_id { get; set; }
-
-        [FirestoreProperty]
-        public int quantity { get; set; }
-
-        /*[FirestoreProperty]
-        public double discount { get; set; }*/
+        public int voucher_id { get; set; }
     }
 }

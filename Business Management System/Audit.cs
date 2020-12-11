@@ -131,6 +131,11 @@ namespace Business_Management_System
 
                 fetchTemplate();
             }
+            else
+            {
+                MessageBox.Show("No invoices are found for the previous month!");
+                pnl_main.Enabled = true;
+            }
         }
 
         private async Task<DateTime> getOldestDate()
@@ -139,7 +144,7 @@ namespace Business_Management_System
 
             Query stockque = coll
                 .OrderByDescending("invoice_date")
-                .Limit(1);
+                .LimitToLast(1);
 
             QuerySnapshot snap = await stockque.GetSnapshotAsync();
 
@@ -153,7 +158,7 @@ namespace Business_Management_System
             CollectionReference coll = db.Collection("invoice");
 
             Query stockque = coll
-                .OrderBy("invoice_date")
+                .OrderByDescending("invoice_date")
                 .Limit(1);
 
             QuerySnapshot snap = await stockque.GetSnapshotAsync();
@@ -185,7 +190,7 @@ namespace Business_Management_System
 
         private async void editTemplate()
         {
-            string temp_vid;
+            int temp_vid;
             List<Invoice> temp = new List<Invoice>();
 
             if (!Directory.Exists(path))
@@ -206,13 +211,17 @@ namespace Business_Management_System
             temp_vid = invoice_all[0].vendor_id;
             copyXlWorkSheet = xlWorkSheet;
 
+            DocumentReference docref0 = db.Collection("voucher").Document("2L3goYlcI1TWRj3G0wT2");
+            DocumentSnapshot vsnap = await docref0.GetSnapshotAsync();
+            int id = vsnap.ConvertTo<Voucher>().voucher_id;
+
             for (int j = 0; j < invoice_all.Count; j++)
             {
                 if(temp_vid != invoice_all[j].vendor_id)
                 {
                     //should go with vendor name
                     xlWorkSheet.Cells[xlWorkSheet.Range["Company_Name"].Row, xlWorkSheet.Range["Company_Name"].Column] = await setCompanyName(invoice_all[j - 1].vendor_id);
-                    xlWorkSheet.Cells[xlWorkSheet.Range["Voucher_Date"].Row, xlWorkSheet.Range["Voucher_Date"].Column] = DateTime.Today.ToString("dd/MM/YYYY");
+                    xlWorkSheet.Cells[xlWorkSheet.Range["Voucher_Date"].Row, xlWorkSheet.Range["Voucher_Date"].Column] = DateTime.Today.ToString("MM/dd/yyyy");
 
                     if (temp.Count > voucherMaxList)
                     {
@@ -232,6 +241,9 @@ namespace Business_Management_System
                         xlWorkSheet.Cells[xlWorkSheet.Range["Balance"].Row + i, xlWorkSheet.Range["Balance"].Column] = calculateInvoiceTotal(temp[i]);
                     }
 
+                    id = id + 1;
+                    xlWorkSheet.Cells[xlWorkSheet.Range["Voucher_Number"].Row, xlWorkSheet.Range["Voucher_Number"].Column] = "v" + id;
+
                     if (j != (invoice_all.Count - 1))
                     {
                         xlWorkBook.Worksheets.Add();
@@ -242,13 +254,21 @@ namespace Business_Management_System
                     }
                 }
 
-                xlWorkSheet.Cells[xlWorkSheet.Range["Ledger"].Row, xlWorkSheet.Range["Ledger"].Column] = xlWorkSheet.Cells[xlWorkSheet.Range["Total_Balance"].Row, xlWorkSheet.Range["Total_Balance"].Column];
-
                 if (temp_vid == invoice_all[j].vendor_id)
                 {
                     temp.Add(invoice_all[j]);
                 }
             }
+
+            DocumentReference docref = db.Collection("voucher").Document("2L3goYlcI1TWRj3G0wT2");
+
+            //if no print will also update
+            Dictionary<string, object> data = new Dictionary<string, object>()
+            {
+                {"voucher_id", id}
+            };
+
+            await docref.UpdateAsync(data);
 
             foreach (Worksheet ws in xlWorkBook.Worksheets)
             {
@@ -258,7 +278,11 @@ namespace Business_Management_System
             xlApp.Visible = true;
             xlWorkBook.Worksheets.PrintPreview();
             xlApp.Visible = false;
-            
+
+            xlWorkBook.SaveAs(@"C:\Users\hxwei\Downloads\PaymentVoucher" + DateTime.Now.ToString("dd-MM-yyyy HH.mm.ss") + ".xlsx", misValue,
+            misValue, misValue, misValue, misValue, Excel.XlSaveAsAccessMode.xlNoChange,
+            misValue, misValue, misValue, misValue, misValue);
+
             //save file line
             xlWorkBook.Close(false, misValue, misValue);
             xlApp.Quit();
@@ -271,7 +295,7 @@ namespace Business_Management_System
             pnl_main.Enabled = true;
         }
 
-        private async Task<string> setCompanyName(string vendor_id)
+        private async Task<string> setCompanyName(int vendor_id)
         {
             Query coll = db.Collection("vendor").WhereEqualTo("vendor_id", vendor_id);
 
@@ -390,6 +414,7 @@ namespace Business_Management_System
                 else
                 {
                     MessageBox.Show("Please select your invoices!");
+                    pnl_main.Enabled = true;
                 }
             }
             else
@@ -404,6 +429,7 @@ namespace Business_Management_System
                 else
                 {
                     MessageBox.Show("Please choose your year and month!");
+                    pnl_main.Enabled = true;
                 }
             }
         }

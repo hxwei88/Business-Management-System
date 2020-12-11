@@ -31,6 +31,9 @@
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
             this.pnl_content = new System.Windows.Forms.Panel();
             this.dataGridView1 = new System.Windows.Forms.DataGridView();
+            this.flowLayoutPanel1 = new System.Windows.Forms.FlowLayoutPanel();
+            this.btn_save = new System.Windows.Forms.Button();
+            this.btn_upload = new System.Windows.Forms.Button();
             this.id = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.item_name = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.item_id = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -38,9 +41,6 @@
             this.unit_price = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.wholesale_price = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.quantity = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.flowLayoutPanel1 = new System.Windows.Forms.FlowLayoutPanel();
-            this.btn_save = new System.Windows.Forms.Button();
-            this.btn_upload = new System.Windows.Forms.Button();
             this.pnl_content.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             this.flowLayoutPanel1.SuspendLayout();
@@ -91,56 +91,6 @@
             this.dataGridView1.UserAddedRow += new System.Windows.Forms.DataGridViewRowEventHandler(this.dataGridView1_UserAddedRow);
             this.dataGridView1.UserDeletingRow += new System.Windows.Forms.DataGridViewRowCancelEventHandler(this.dataGridView1_UserDeletingRow);
             // 
-            // id
-            // 
-            this.id.HeaderText = "ID";
-            this.id.MinimumWidth = 6;
-            this.id.Name = "id";
-            this.id.Visible = false;
-            this.id.Width = 125;
-            // 
-            // item_name
-            // 
-            this.item_name.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
-            this.item_name.HeaderText = "Item Name";
-            this.item_name.MinimumWidth = 6;
-            this.item_name.Name = "item_name";
-            // 
-            // item_id
-            // 
-            this.item_id.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
-            this.item_id.HeaderText = "Item ID";
-            this.item_id.MinimumWidth = 6;
-            this.item_id.Name = "item_id";
-            // 
-            // vendor_id
-            // 
-            this.vendor_id.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
-            this.vendor_id.HeaderText = "Vendor ID";
-            this.vendor_id.MinimumWidth = 6;
-            this.vendor_id.Name = "vendor_id";
-            // 
-            // unit_price
-            // 
-            this.unit_price.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
-            this.unit_price.HeaderText = "Unit Price";
-            this.unit_price.MinimumWidth = 6;
-            this.unit_price.Name = "unit_price";
-            // 
-            // wholesale_price
-            // 
-            this.wholesale_price.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
-            this.wholesale_price.HeaderText = "Wholesale Price";
-            this.wholesale_price.MinimumWidth = 6;
-            this.wholesale_price.Name = "wholesale_price";
-            // 
-            // quantity
-            // 
-            this.quantity.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
-            this.quantity.HeaderText = "Quantity";
-            this.quantity.MinimumWidth = 6;
-            this.quantity.Name = "quantity";
-            // 
             // flowLayoutPanel1
             // 
             this.flowLayoutPanel1.AutoSize = true;
@@ -184,6 +134,63 @@
             this.btn_upload.Text = "UPLOAD";
             this.btn_upload.UseVisualStyleBackColor = false;
             this.btn_upload.Click += new System.EventHandler(this.btn_upload_Click);
+            // 
+            // id
+            // 
+            this.id.HeaderText = "ID";
+            this.id.MinimumWidth = 6;
+            this.id.Name = "id";
+            this.id.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
+            this.id.Visible = false;
+            this.id.Width = 125;
+            // 
+            // item_name
+            // 
+            this.item_name.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            this.item_name.HeaderText = "Item Name";
+            this.item_name.MinimumWidth = 6;
+            this.item_name.Name = "item_name";
+            this.item_name.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
+            // 
+            // item_id
+            // 
+            this.item_id.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            this.item_id.HeaderText = "Item ID";
+            this.item_id.MinimumWidth = 6;
+            this.item_id.Name = "item_id";
+            this.item_id.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
+            // 
+            // vendor_id
+            // 
+            this.vendor_id.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            this.vendor_id.HeaderText = "Vendor ID";
+            this.vendor_id.MinimumWidth = 6;
+            this.vendor_id.Name = "vendor_id";
+            this.vendor_id.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
+            // 
+            // unit_price
+            // 
+            this.unit_price.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            this.unit_price.HeaderText = "Unit Price";
+            this.unit_price.MinimumWidth = 6;
+            this.unit_price.Name = "unit_price";
+            this.unit_price.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
+            // 
+            // wholesale_price
+            // 
+            this.wholesale_price.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            this.wholesale_price.HeaderText = "Wholesale Price";
+            this.wholesale_price.MinimumWidth = 6;
+            this.wholesale_price.Name = "wholesale_price";
+            this.wholesale_price.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
+            // 
+            // quantity
+            // 
+            this.quantity.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            this.quantity.HeaderText = "Quantity";
+            this.quantity.MinimumWidth = 6;
+            this.quantity.Name = "quantity";
+            this.quantity.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
             // 
             // Storage
             // 
