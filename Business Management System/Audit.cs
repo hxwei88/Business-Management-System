@@ -279,7 +279,7 @@ namespace Business_Management_System
             xlWorkBook.Worksheets.PrintPreview();
             xlApp.Visible = false;
 
-            xlWorkBook.SaveAs(@"C:\Users\hxwei\Downloads\PaymentVoucher" + DateTime.Now.ToString("dd-MM-yyyy HH.mm.ss") + ".xlsx", misValue,
+            xlWorkBook.SaveAs(path + @"\PaymentVoucher" + DateTime.Now.ToString("dd-MM-yyyy HH.mm.ss") + ".xlsx", misValue,
             misValue, misValue, misValue, misValue, Excel.XlSaveAsAccessMode.xlNoChange,
             misValue, misValue, misValue, misValue, misValue);
 
