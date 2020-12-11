@@ -94,7 +94,7 @@ namespace Business_Management_System
             QuerySnapshot salessnap = await salesque.GetSnapshotAsync();
             Sales sales = salessnap.Documents[0].ConvertTo<Sales>();
 
-            if(sales.sales_date.Month != System.DateTime.Now.AddMonths(-1).Month)
+            if(sales.sales_date.Month > System.DateTime.Now.AddMonths(-1).Month)
                 await updateSales(newestDate.Year, newestDate.Month);
 
             finishLoad();

@@ -449,7 +449,15 @@ namespace Business_Management_System
                                 add_coll[row].item_name = dataGridView1[e.ColumnIndex, e.RowIndex].Value.ToString();
                                 break;
                             case "vendor_id":
-                                add_coll[row].vendor_id = Convert.ToInt32(dataGridView1[e.ColumnIndex, e.RowIndex].Value.ToString());
+                                if (Int32.TryParse(dataGridView1[e.ColumnIndex, e.RowIndex].Value.ToString(), out int vendor_id))
+                                {
+                                    add_coll[row].vendor_id = Convert.ToInt32(dataGridView1[e.ColumnIndex, e.RowIndex].Value.ToString());
+                                }
+                                else
+                                {
+                                    MessageBox.Show("Only numbers are allowed!");
+                                    dataGridView1[e.ColumnIndex, e.RowIndex].Value = "";
+                                }
                                 break;
                             case "unit_price":
                                 if (Double.TryParse(dataGridView1[e.ColumnIndex, e.RowIndex].Value.ToString(), out double unit_price))
@@ -475,7 +483,15 @@ namespace Business_Management_System
                                 }
                                 break;
                             case "item_id":
-                                add_coll[row].item_id = Convert.ToInt32(dataGridView1[e.ColumnIndex, e.RowIndex].Value);
+                                if (Int32.TryParse(dataGridView1[e.ColumnIndex, e.RowIndex].Value.ToString(), out int item_id))
+                                {
+                                    add_coll[row].item_id = Convert.ToInt32(dataGridView1[e.ColumnIndex, e.RowIndex].Value);
+                                }
+                                else
+                                {
+                                    MessageBox.Show("Only numbers are allowed!");
+                                    dataGridView1[e.ColumnIndex, e.RowIndex].Value = "";
+                                }
                                 break;
                             case "wholesale_price":
                                 if (Double.TryParse(dataGridView1[e.ColumnIndex, e.RowIndex].Value.ToString(), out double wholesale_price))
@@ -704,8 +720,6 @@ namespace Business_Management_System
         async void Form_Closed(object sender, FormClosedEventArgs e)
         {
             CollectionReference coll = db.Collection("stock");
-
-            MessageBox.Show("hi");
 
             foreach (Stock stock in add_coll)
             {

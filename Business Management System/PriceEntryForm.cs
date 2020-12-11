@@ -48,5 +48,13 @@ namespace Business_Management_System
 
             this.Close();
         }
+
+        private void dataGridView1_CellEndEdit(object sender, DataGridViewCellEventArgs e)
+        {
+            if(!Double.TryParse(dataGridView1[e.ColumnIndex, e.RowIndex].Value.ToString(), out double retail_price))
+            {
+                MessageBox.Show("Only double numbers are allowed!");
+            }
+        }
     }
 }
